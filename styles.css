@@ -54,3 +54,13 @@ footer{padding:65px 6vw 35px;border-top:1px solid var(--line);display:grid;grid-
     right: auto;
   }
 }
+/* Fix actual single artwork sizing */
+.release-art img.release-cover {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  opacity: 1 !important;
+  object-fit: cover;
+}
