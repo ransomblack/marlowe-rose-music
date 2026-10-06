@@ -33,27 +33,35 @@
   </div>
 </section>
 
-<section id="entries" class="diary-journal">
-  <div class="journal-heading reveal">
-    <img src="{{ '/assets/marlowe-rose-logo.png' | relative_url }}" alt="" class="small-rose">
-    <p class="eyebrow">PAGES, THOUGHTS & THINGS BETWEEN SONGS</p>
-    <h2>Things I could write down<br>before I could sing them.</h2>
-  </div>
-  {% assign entries = site.diary | sort: "date" | reverse %}
+<section id="entries" class="diary-journal diary-reader">
+  {% assign entries = site.diary | sort: "date" %}
   {% if entries.size > 0 %}
-    {% for entry in entries %}
-      {% assign page_number = entries.size | minus: forloop.index0 %}
-      <article class="journal-entry reveal">
-        <div class="journal-meta">{{ entry.date | date: "%B %Y" | upcase }} <span>•</span> PAGE {{ page_number }}</div>
-        <h3><a href="{{ entry.url | relative_url }}">{{ entry.title }}</a></h3>
-        {% if entry.excerpt %}<p>{{ entry.excerpt }}</p>{% endif %}
-        <a class="quiet-link" href="{{ entry.url | relative_url }}">read the page →</a>
-      </article>
-    {% endfor %}
+    {% assign current = entries | last %}
+    <article class="diary-paper reveal">
+      <div class="diary-paper-top">
+        <img src="{{ '/assets/marlowe-rose-logo.png' | relative_url }}" alt="" class="small-rose">
+        <p class="eyebrow">FROM THE DIARY</p>
+        <div class="journal-meta">{{ current.date | date: "%B %d, %Y" | upcase }} <span>•</span> PAGE {{ entries.size }}</div>
+      </div>
+      <h2>{{ current.title }}</h2>
+      {% if current.excerpt %}<p class="entry-deck">{{ current.excerpt }}</p>{% endif %}
+      <div class="entry-body">{{ current.content }}</div>
+      <img src="{{ '/assets/marlowe-rose-logo.png' | relative_url }}" alt="" class="entry-rose">
+      <nav class="page-turns" aria-label="Diary pages">
+        {% if entries.size > 1 %}
+          {% assign previous_index = entries.size | minus: 2 %}
+          {% assign previous = entries[previous_index] %}
+          <a href="{{ previous.url | relative_url }}">← Previous Page</a>
+        {% else %}
+          <span></span>
+        {% endif %}
+        <span class="page-count">Page {{ entries.size }}</span>
+        <span class="page-end">Latest Page</span>
+      </nav>
+    </article>
   {% else %}
-    <article class="journal-entry reveal"><p>A first page is coming soon.</p></article>
+    <article class="diary-paper reveal"><p class="entry-body">A first page is coming soon.</p></article>
   {% endif %}
-  <blockquote class="journal-quote reveal">“Maybe the beginning isn't a moment. Maybe it's a decision.”</blockquote>
 </section>
 </main>
 
