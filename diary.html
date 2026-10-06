@@ -1,3 +1,5 @@
+---
+---
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,17 +8,17 @@
   <meta name="theme-color" content="#2b201c">
   <meta name="description" content="From the Diary — Marlowe Rose.">
   <title>From the Diary | Marlowe Rose</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="{{ '/styles.css' | relative_url }}">
 </head>
 <body class="diary-page">
 <header class="site-header diary-header">
-  <a class="brand" href="index.html" aria-label="Marlowe Rose home">
-    <img src="assets/marlowe-rose-logo.png" alt="" class="brand-rose">
+  <a class="brand" href="{{ '/index.html' | relative_url }}" aria-label="Marlowe Rose home">
+    <img src="{{ '/assets/marlowe-rose-logo.png' | relative_url }}" alt="" class="brand-rose">
     <span>Marlowe Rose</span>
   </a>
   <button class="menu-button" aria-label="Open menu" aria-expanded="false">menu</button>
   <nav class="nav" aria-label="Main navigation">
-    <a href="index.html#music">music</a><a href="diary.html">from the diary</a><a href="index.html#about">meet marlowe</a><a href="index.html#connect">connect</a>
+    <a href="{{ '/index.html' | relative_url }}#music">music</a><a href="{{ '/diary.html' | relative_url }}">from the diary</a><a href="{{ '/index.html' | relative_url }}#about">meet marlowe</a><a href="{{ '/index.html' | relative_url }}#connect">connect</a>
   </nav>
 </header>
 
@@ -33,24 +35,33 @@
 
 <section id="entries" class="diary-journal">
   <div class="journal-heading reveal">
-    <img src="assets/marlowe-rose-logo.png" alt="" class="small-rose">
+    <img src="{{ '/assets/marlowe-rose-logo.png' | relative_url }}" alt="" class="small-rose">
     <p class="eyebrow">PAGES, THOUGHTS & THINGS BETWEEN SONGS</p>
     <h2>Things I could write down<br>before I could sing them.</h2>
   </div>
-  <article class="journal-entry reveal">
-    <div class="journal-meta">OCTOBER 2026 <span>•</span> PAGE 01</div>
-    <h3>There are things I can sing that I still don't know how to say.</h3>
-    <p>A first page is coming soon.</p>
-  </article>
+  {% assign entries = site.diary | sort: "date" | reverse %}
+  {% if entries.size > 0 %}
+    {% for entry in entries %}
+      {% assign page_number = entries.size | minus: forloop.index0 %}
+      <article class="journal-entry reveal">
+        <div class="journal-meta">{{ entry.date | date: "%B %Y" | upcase }} <span>•</span> PAGE {{ page_number }}</div>
+        <h3><a href="{{ entry.url | relative_url }}">{{ entry.title }}</a></h3>
+        {% if entry.excerpt %}<p>{{ entry.excerpt }}</p>{% endif %}
+        <a class="quiet-link" href="{{ entry.url | relative_url }}">read the page →</a>
+      </article>
+    {% endfor %}
+  {% else %}
+    <article class="journal-entry reveal"><p>A first page is coming soon.</p></article>
+  {% endif %}
   <blockquote class="journal-quote reveal">“Maybe the beginning isn't a moment. Maybe it's a decision.”</blockquote>
 </section>
 </main>
 
 <footer id="connect">
-  <div class="footer-brand"><img src="assets/marlowe-rose-logo.png" alt=""><span>Marlowe Rose</span></div>
+  <div class="footer-brand"><img src="{{ '/assets/marlowe-rose-logo.png' | relative_url }}" alt=""><span>Marlowe Rose</span></div>
   <div class="socials"><a href="#">Instagram</a><a href="#">TikTok</a><a href="#">YouTube</a><a href="#">Facebook</a></div>
   <p>© 2026 Marlowe Rose</p>
 </footer>
-<script src="script.js"></script>
+<script src="{{ '/script.js' | relative_url }}"></script>
 </body>
 </html>
