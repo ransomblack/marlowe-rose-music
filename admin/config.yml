@@ -38,8 +38,8 @@ collections:
       - { label: "Cover artwork", name: "cover", widget: "image" }
       - { label: "Featured / latest release", name: "featured", widget: "boolean", default: false, hint: "Turn this on for the song that should get the large featured treatment." }
       - { label: "Short description", name: "description", widget: "text", required: false }
-      - { label: "HyperFollow / presave link", name: "presave_url", widget: "string", required: false }
-      - { label: "Spotify link", name: "spotify_url", widget: "string", required: false }
-      - { label: "Apple Music link", name: "apple_url", widget: "string", required: false }
-      - { label: "Amazon Music link", name: "amazon_url", widget: "string", required: false }
-      - { label: "Diary story link", name: "diary_url", widget: "string", required: false, hint: "Optional link to the diary page behind the song." }
+      - { label: "HyperFollow / presave link", name: "presave_url", widget: "string", required: false, hint: "Paste the DistroKid HyperFollow or presave link here." }
+      - { label: "Spotify link", name: "spotify_url", widget: "string", required: false, hint: "After release, paste the Spotify song link here." }
+      - { label: "Apple Music link", name: "apple_url", widget: "string", required: false, hint: "After release, paste the Apple Music song link here." }
+      - { label: "Amazon Music link", name: "amazon_url", widget: "string", required: false, hint: "After release, paste the Amazon Music song link here." }
+      - { label: "Diary story link", name: "diary_url", widget: "string", required: false, hint: "Optional. Paste the website link to the diary page behind this song." }
