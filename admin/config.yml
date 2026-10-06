@@ -51,10 +51,14 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     extension: "md"
     format: "frontmatter"
-    media_folder: "/assets/photos"
-    public_folder: "/assets/photos"
     fields:
       - { label: "Title", name: "title", widget: "string", hint: "A short name for the photo. This can be simple, like Backstage or Sunday Morning." }
       - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", date_format: "MMMM D, YYYY", time_format: "h:mm A", picker_utc: false }
-      - { label: "Photo", name: "image", widget: "image", choose_url: false, media_library: { config: { multiple: false } } }
+      - label: "Photo"
+        name: "image"
+        widget: "image"
+        choose_url: false
+        allow_multiple: false
+        media_folder: "/assets/photos"
+        public_folder: "/assets/photos"
       - { label: "Caption", name: "caption", widget: "text", required: false, hint: "Optional. Add a few words to go with the photo." }
