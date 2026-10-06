@@ -18,6 +18,6 @@ collections:
     format: "frontmatter"
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime", date_format: "MMMM D, YYYY", time_format: false }
+      - { label: "Date", name: "date", widget: "datetime", date_format: "MMMM D, YYYY", time_format: "h:mm A" }
       - { label: "Short excerpt", name: "excerpt", widget: "text", required: false, hint: "Optional. A short thought shown before the full entry." }
       - { label: "Entry", name: "body", widget: "markdown" }
