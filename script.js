@@ -68,3 +68,16 @@ if (albumLightbox) {
     if (event.key === 'Escape' && !albumLightbox.hidden) closeLightbox();
   });
 }
+
+const scrapbook=document.querySelector('#scrapbook');
+if(scrapbook){
+ const cover=document.querySelector('#scrapbook-cover'), openBook=document.querySelector('#scrapbook-open'), scroll=document.querySelector('#album-scroll'), prev=document.querySelector('.book-prev'), next=document.querySelector('.book-next'), count=document.querySelector('.book-page-count'), close=document.querySelector('.close-book');
+ const pages=[...scroll.querySelectorAll('.scrap-page')];
+ const perView=()=>window.innerWidth<=800?1:2;
+ const update=()=>{const page=Math.round(scroll.scrollLeft/(scroll.clientWidth/perView()))+1; const spread=Math.ceil(page/perView()); const total=Math.ceil(pages.length/perView()); count.textContent=spread+' / '+total;};
+ cover.addEventListener('click',()=>{scrapbook.classList.add('open');openBook.setAttribute('aria-hidden','false');setTimeout(update,50)});
+ close.addEventListener('click',()=>{scrapbook.classList.remove('open');openBook.setAttribute('aria-hidden','true');scroll.scrollLeft=0});
+ next.addEventListener('click',()=>scroll.scrollBy({left:scroll.clientWidth,behavior:'smooth'}));
+ prev.addEventListener('click',()=>scroll.scrollBy({left:-scroll.clientWidth,behavior:'smooth'}));
+ scroll.addEventListener('scroll',()=>requestAnimationFrame(update)); window.addEventListener('resize',update);
+}
