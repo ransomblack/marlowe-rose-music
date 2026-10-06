@@ -668,3 +668,27 @@ body.lightbox-open{overflow:hidden}
 }
 #community-scrapbook .cover-frame{border-color:rgba(218,195,174,.36)}
 #community-scrapbook .cover-frame strong{color:#f0ded0}
+
+
+/* Photo submission confirmation */
+.photo-success-card{
+  max-width:760px;
+  margin:30px auto 0;
+  padding:28px 34px;
+  text-align:center;
+  border:1px solid rgba(113,66,78,.16);
+  background:#f7efe4;
+  box-shadow:0 16px 38px rgba(73,51,42,.10);
+  color:#765b54;
+}
+.photo-success-card[hidden]{display:none!important}
+.photo-success-card strong{
+  display:block;
+  margin-bottom:8px;
+  font:400 30px/1.05 "Cormorant Garamond",serif;
+  color:#71424e;
+}
+.photo-success-card span{
+  display:block;
+  font:italic 17px/1.5 "Cormorant Garamond",serif;
+}
