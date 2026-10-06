@@ -24,10 +24,13 @@
     <div class="entry-body">{{ content }}</div>
     <img src="{{ '/assets/marlowe-rose-logo.png' | relative_url }}" alt="" class="entry-rose">
     {% assign entries = site.diary | sort: "date" %}
+    {% assign current_index = 0 %}
+    {% assign page_number = 1 %}
     {% for entry in entries %}
       {% if entry.url == page.url %}
         {% assign current_index = forloop.index0 %}
         {% assign page_number = forloop.index %}
+        {% break %}
       {% endif %}
     {% endfor %}
     {% assign previous_index = current_index | minus: 1 %}
