@@ -656,3 +656,26 @@ body.lightbox-open{overflow:hidden}
 .photo-permission{display:flex!important;align-items:flex-start;gap:12px;padding:14px 0}.photo-permission input{margin-top:3px}.photo-permission span{display:block!important;margin:0!important;font:13px/1.5 Inter,sans-serif!important;letter-spacing:0!important;text-transform:none!important;color:#765b54!important}
 .photo-submit-button{color:#71424e;border-color:#71424e;background:transparent;cursor:pointer}.photo-submit-button:disabled{opacity:.55}.photo-form-status{min-height:20px;margin:14px 0 0;font:italic 16px "Cormorant Garamond",serif;color:#765b54}.submitted-by{display:block;margin:4px 0 7px;font:italic 15px "Cormorant Garamond",serif;color:#87675e}
 @media(max-width:800px){.community-album-section{margin-top:75px;padding-top:65px}.photo-submit-form{padding:32px 22px}.photo-form-row{grid-template-columns:1fr}.community-heading h2{font-size:clamp(45px,12vw,62px)}}
+
+
+/* Scrapbook color pairing + mobile spacing fix */
+#scrapbook .scrapbook-cover{
+  background:
+    linear-gradient(90deg,rgba(28,14,18,.34) 0 16px,rgba(255,255,255,.06) 17px,transparent 25px),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,rgba(0,0,0,.018) 1px 3px),
+    linear-gradient(135deg,#683d4b,#814d5c 52%,#55313c);
+}
+#community-scrapbook .scrapbook-cover{
+  background:
+    linear-gradient(90deg,rgba(20,27,25,.30) 0 16px,rgba(255,255,255,.06) 17px,transparent 25px),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,rgba(0,0,0,.018) 1px 3px),
+    linear-gradient(135deg,#52645e,#6d8178 52%,#43534e);
+}
+#community-scrapbook .cover-frame{border-color:rgba(218,195,174,.36)}
+#community-scrapbook .cover-frame strong{color:#f0ded0}
+@media(max-width:800px){
+  .community-book{margin-bottom:42px!important}
+  .community-book:not(.open){display:block;min-height:0}
+  .community-book .scrapbook-cover{position:relative;margin-bottom:0}
+  .leave-photo-toggle{display:block;position:relative;z-index:5;clear:both;margin:42px auto 0!important}
+}
