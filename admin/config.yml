@@ -4,8 +4,8 @@ backend:
   branch: main
 
 publish_mode: simple
-media_folder: "assets/diary"
-public_folder: "/assets/diary"
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
 
 collections:
   - name: "diary"
@@ -41,3 +41,20 @@ collections:
       - { label: "Apple Music link", name: "apple_url", widget: "string", required: false, hint: "After release, paste the Apple Music song link here." }
       - { label: "Amazon Music link", name: "amazon_url", widget: "string", required: false, hint: "After release, paste the Amazon Music song link here." }
       - { label: "Diary story link", name: "diary_url", widget: "string", required: false, hint: "Optional. Paste the website link to the diary page behind this song." }
+
+
+  - name: "photos"
+    label: "Photos"
+    label_singular: "Photo"
+    folder: "_photos"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    media_folder: "/assets/photos"
+    public_folder: "/assets/photos"
+    fields:
+      - { label: "Title", name: "title", widget: "string", hint: "A short name for the photo. This can be simple, like Backstage or Sunday Morning." }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", date_format: "MMMM D, YYYY", time_format: "h:mm A", picker_utc: false }
+      - { label: "Photo", name: "image", widget: "image", choose_url: false, media_library: { config: { multiple: false } } }
+      - { label: "Caption", name: "caption", widget: "text", required: false, hint: "Optional. Add a few words to go with the photo." }
