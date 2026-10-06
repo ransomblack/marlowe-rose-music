@@ -1,0 +1,62 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#171311">
+  <meta name="description" content="Marlowe Rose — Music">
+  <title>Music | Marlowe Rose</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html#top" aria-label="Marlowe Rose home">
+    <img src="assets/marlowe-rose-logo.png" alt="" class="brand-rose"><span>Marlowe Rose</span>
+  </a>
+  <button class="menu-button" aria-label="Open menu" aria-expanded="false">menu</button>
+  <nav class="nav" aria-label="Main navigation">
+    <a href="index.html#music">music</a><a href="diary.html">from the diary</a><a href="photos.html">photos</a><a href="index.html#about">meet marlowe</a><a href="index.html#leave-a-page">leave a page</a><a href="index.html#connect">connect</a>
+  </nav>
+</header>
+<main>
+<section class="catalog section music-archive">
+  <div class="section-number">music / all releases</div>
+  <div class="catalog-heading reveal">
+    <p class="eyebrow">THE WHOLE STORY</p>
+    <h1>The pages keep<br><em>turning.</em></h1>
+    <p>Every song, every chapter, all in one place.</p>
+    <a class="quiet-link" href="index.html#music">← back to the latest page</a>
+  </div>
+  {% assign music_sorted = site.music | sort: "date" | reverse %}
+  <div class="catalog-grid" aria-live="polite">
+    {% for release in music_sorted %}
+    <article class="catalog-card reveal">
+      {% if release.cover %}<img src="{{ release.cover | relative_url }}" alt="Marlowe Rose — {{ release.title }}">{% endif %}
+      <p class="release-date">{% if release.date > site.time %}COMING {{ release.date | date: "%B %-d, %Y" | upcase }}{% else %}{{ release.date | date: "%B %-d, %Y" | upcase }}{% endif %}</p>
+      <h3>{{ release.title }}</h3>
+      {% if release.description %}<p>{{ release.description }}</p>{% endif %}
+      <div class="release-links">
+        {% if release.spotify_url %}<a href="{{ release.spotify_url }}" target="_blank" rel="noopener noreferrer">spotify →</a>{% endif %}
+        {% if release.apple_url %}<a href="{{ release.apple_url }}" target="_blank" rel="noopener noreferrer">apple music →</a>{% endif %}
+        {% if release.amazon_url %}<a href="{{ release.amazon_url }}" target="_blank" rel="noopener noreferrer">amazon music →</a>{% endif %}
+        {% if release.presave_url %}<a href="{{ release.presave_url }}" target="_blank" rel="noopener noreferrer">{% if release.date > site.time %}presave →{% else %}listen →{% endif %}</a>{% endif %}
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+</main>
+<footer id="connect" class="connect-footer">
+  <div class="connect-inner reveal">
+    <img class="connect-rose" src="assets/marlowe-rose-logo.png" alt="">
+    <p class="eyebrow">MARLOWE ROSE</p>
+    <h2>Every page has a song.</h2>
+    <div class="connect-signoff"><strong>Marlowe Rose</strong><span>my diary out loud.</span></div>
+  </div>
+  <p class="copyright">© 2026 Marlowe Rose</p>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
