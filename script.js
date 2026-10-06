@@ -136,3 +136,16 @@ if(photoForm){
     }
   });
 }
+
+
+/* Temporary confirmation preview — no submission is sent */
+const successPreviewButton=document.querySelector('#success-preview-button');
+if(successPreviewButton){
+  successPreviewButton.addEventListener('click',()=>{
+    const card=document.querySelector('#photo-success-card');
+    if(!card)return;
+    card.hidden=false;
+    card.style.display='block';
+    card.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+}
