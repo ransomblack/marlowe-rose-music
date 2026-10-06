@@ -814,3 +814,12 @@ body.lightbox-open{overflow:hidden}
   .album-choices{grid-template-columns:1fr;gap:58px}
   .album-choices .scrapbook-cover{width:min(82vw,500px)}
 }
+
+
+/* Center the second hero-title line beneath the first */
+.hero h1{width:max-content;max-width:100%}
+.hero h1 em{display:block;width:100%;text-align:center}
+@media(max-width:800px){
+  .hero h1{width:max-content;max-width:100%}
+  .hero h1 em{display:block;width:100%;text-align:center}
+}
