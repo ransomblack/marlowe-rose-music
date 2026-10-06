@@ -485,3 +485,13 @@ footer{padding:65px 6vw 35px;border-top:1px solid var(--line);display:grid;grid-
     white-space: nowrap;
   }
 }
+
+
+/* Center second hero-title line beneath the first on desktop */
+@media (min-width: 801px) {
+  .hero h1 em {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+}
