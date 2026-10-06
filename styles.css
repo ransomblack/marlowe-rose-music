@@ -551,3 +551,33 @@ body.lightbox-open{overflow:hidden}
 .album-mat{padding:9px 9px 30px}
 .album-note p{font-size:20px}
 }
+
+/* Scrapbook experience v2 */
+.scrapbook-body{background:#eadfce;color:#4b3732;min-height:100vh}
+.scrapbook-stage{padding:145px 4vw 90px;min-height:100vh;background:radial-gradient(circle at 50% 28%,rgba(255,255,255,.55),transparent 38%),#eadfce}
+.scrapbook-intro{text-align:center;margin:0 auto 48px}
+.scrapbook-intro .eyebrow{color:#8b4b59}
+.scrapbook-intro h1{margin:10px 0 14px;font:400 clamp(45px,5.5vw,76px)/.92 "Cormorant Garamond",serif;color:#51363c}
+.scrapbook-intro h1 em{color:#8b4b59;font-weight:400}.scrapbook-intro>p:last-child{font:italic 19px "Cormorant Garamond",serif;color:#87675e}
+.scrapbook-shell{max-width:1120px;margin:auto;perspective:1800px}
+.scrapbook-cover{position:relative;display:block;width:min(620px,78vw);aspect-ratio:1.28/1;margin:20px auto 0;border:0;border-radius:7px 18px 18px 7px;padding:32px;background:linear-gradient(125deg,#603b45,#7b4a57 55%,#56343d);box-shadow:0 38px 65px rgba(64,42,37,.3),inset 8px 0 15px rgba(0,0,0,.18),inset -2px 0 rgba(255,255,255,.1);cursor:pointer;color:#d8ad9a;transition:transform .35s ease,box-shadow .35s ease}
+.scrapbook-cover:hover{transform:translateY(-7px) rotateX(2deg);box-shadow:0 45px 75px rgba(64,42,37,.34)}
+.cover-frame{height:100%;border:1px solid rgba(223,178,156,.48);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:25px;box-shadow:inset 0 0 0 7px rgba(44,25,30,.12)}
+.cover-rose{width:46px;height:58px;object-fit:contain;margin-bottom:17px;filter:sepia(.2);opacity:.88}
+.cover-name{font:500 12px Inter,sans-serif;letter-spacing:.24em;text-transform:uppercase}.cover-frame strong{font:400 clamp(42px,6vw,68px)/1 "Cormorant Garamond",serif;color:#f0d8c8;margin:8px 0}
+.cover-rule{width:72px;height:1px;background:rgba(230,192,173,.6);margin:10px}.cover-frame small{font:italic 17px "Cormorant Garamond",serif;color:#ddb9a8}
+.cover-spine{position:absolute;left:16px;top:0;bottom:0;width:10px;border-left:1px solid rgba(0,0,0,.18);border-right:1px solid rgba(255,255,255,.08)}
+.scrapbook-open{display:none}.scrapbook-shell.open .scrapbook-cover{display:none}.scrapbook-shell.open .scrapbook-open{display:block}
+.book-topbar{display:flex;justify-content:space-between;align-items:center;margin:0 2% 12px;color:#8d6c62;font:500 9px Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase}
+.close-book{border:0;background:none;color:#71424e;font:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer}
+.album-scroll{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;box-shadow:0 35px 70px rgba(67,45,38,.2);background:#d8c6aa;border-radius:5px}
+.album-scroll::-webkit-scrollbar{display:none}
+.scrap-page{flex:0 0 50%;scroll-snap-align:start;min-height:610px;padding:13px 0}
+.scrap-paper{height:100%;min-height:584px;position:relative;padding:55px 42px;background:linear-gradient(90deg,rgba(89,61,49,.08),transparent 8%),radial-gradient(circle at 20% 10%,rgba(255,255,255,.65),transparent 32%),#f6eddf;box-shadow:inset -1px 0 rgba(82,55,46,.13)}
+.scrap-page:nth-child(even) .scrap-paper{background:linear-gradient(270deg,rgba(89,61,49,.07),transparent 8%),radial-gradient(circle at 75% 20%,rgba(255,255,255,.55),transparent 30%),#f6eddf}
+.scrap-photo-wrap{max-width:390px;margin:auto}.scrap-pos-1{transform:rotate(-2deg);margin-top:22px}.scrap-pos-2{transform:rotate(1.5deg);margin-top:75px}.scrap-pos-3{transform:rotate(-.7deg);margin-top:42px}.scrap-pos-0{transform:rotate(2deg);margin-top:15px}
+.scrap-polaroid{display:block;padding:10px 10px 35px;background:#fffaf1;box-shadow:0 13px 25px rgba(62,42,35,.2)}.scrap-polaroid img{display:block;width:100%;max-height:390px;object-fit:contain;background:#e9dfd2}
+.scrap-caption{text-align:center;margin-top:15px}.scrap-caption p{margin:0 0 5px;font:italic 21px "Cormorant Garamond",serif;color:#5d4141}.scrap-caption time{font:500 9px Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#9b7468}
+.scrap-last,.scrap-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font:italic 25px "Cormorant Garamond",serif;color:#87675e}.scrap-last img{width:38px;height:48px;object-fit:contain;opacity:.45;margin-bottom:14px}
+.book-controls{display:flex;justify-content:center;align-items:center;gap:28px;margin-top:22px}.book-controls button{width:42px;height:42px;border:1px solid rgba(113,66,78,.3);border-radius:50%;background:transparent;color:#71424e;font-size:18px;cursor:pointer}.book-page-count{min-width:70px;text-align:center;font:500 9px Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#94756b}
+@media(max-width:800px){.scrapbook-stage{padding:110px 4vw 65px}.scrapbook-intro{margin-bottom:35px}.scrapbook-cover{width:min(88vw,560px);padding:20px}.cover-rose{width:34px;height:43px}.album-scroll{scroll-snap-type:x mandatory}.scrap-page{flex-basis:100%;min-height:560px}.scrap-paper{min-height:535px;padding:45px 28px}.book-topbar span{display:none}.scrap-photo-wrap{max-width:390px}.scrap-polaroid img{max-height:360px}}
