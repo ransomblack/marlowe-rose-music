@@ -1,0 +1,23 @@
+backend:
+  name: github
+  repo: ransomblack/marlowe-rose-music
+  branch: main
+
+publish_mode: simple
+media_folder: "assets/diary"
+public_folder: "/assets/diary"
+
+collections:
+  - name: "diary"
+    label: "Diary"
+    label_singular: "Diary Entry"
+    folder: "_diary"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", date_format: "MMMM D, YYYY", time_format: false }
+      - { label: "Short excerpt", name: "excerpt", widget: "text", required: false, hint: "Optional. A short thought shown before the full entry." }
+      - { label: "Entry", name: "body", widget: "markdown" }
