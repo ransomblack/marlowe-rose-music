@@ -97,12 +97,44 @@ const photoToggle=document.querySelector('#leave-photo-toggle'),photoPanel=docum
 if(photoToggle&&photoPanel){photoToggle.addEventListener('click',()=>{photoPanel.hidden=!photoPanel.hidden;photoToggle.textContent=photoPanel.hidden?'leave a photo →':'close form ×';if(!photoPanel.hidden)photoPanel.scrollIntoView({behavior:'smooth',block:'start'});});}
 if(photoForm){
   const button=photoForm.querySelector('button[type=submit]');
-  photoForm.addEventListener('submit',()=>{button.disabled=true;button.textContent='sending…';});
+  const success=document.querySelector('#photo-form-success');
+  const error=document.querySelector('#photo-form-error');
+  let handledSuccess=false;
+
+  photoForm.addEventListener('submit',()=>{
+    handledSuccess=false;
+    button.disabled=true;
+    button.textContent='sending…';
+  });
+
+  const finishSuccess=()=>{
+    if(handledSuccess)return;
+    handledSuccess=true;
+    photoForm.reset();
+    button.textContent='photo sent ✓';
+    photoToggle.textContent='leave a photo →';
+    photoToggle.disabled=true;
+    if(success){
+      success.style.display='block';
+      success.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+    setTimeout(()=>{
+      photoPanel.hidden=true;
+      if(success)success.style.display='none';
+      button.textContent='send my photo →';
+      button.disabled=false;
+      photoToggle.disabled=false;
+      photoToggle.scrollIntoView({behavior:'smooth',block:'center'});
+    },5000);
+  };
+
   const observer=new MutationObserver(()=>{
-    const success=document.querySelector('#photo-form-success');
-    const error=document.querySelector('#photo-form-error');
-    if(success&&getComputedStyle(success).display!=='none'){photoForm.reset();button.textContent='photo sent ✓';setTimeout(()=>{button.textContent='send my photo →';button.disabled=false},3500);}
-    if(error&&getComputedStyle(error).display!=='none'){button.textContent='send my photo →';button.disabled=false;}
+    if(success&&getComputedStyle(success).display!=='none')finishSuccess();
+    if(error&&getComputedStyle(error).display!=='none'){
+      button.textContent='send my photo →';
+      button.disabled=false;
+      photoToggle.textContent='close form ×';
+    }
   });
   observer.observe(photoForm,{subtree:true,attributes:true,attributeFilter:['style','class']});
 }
