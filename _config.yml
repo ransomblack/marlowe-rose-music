@@ -6,6 +6,8 @@ collections:
     output: false
   photos:
     output: false
+  community_photos:
+    output: false
 
 defaults:
   - scope:
