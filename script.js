@@ -97,21 +97,17 @@ const photoToggle=document.querySelector('#leave-photo-toggle'),photoPanel=docum
 if(photoToggle&&photoPanel){photoToggle.addEventListener('click',()=>{photoPanel.hidden=!photoPanel.hidden;photoToggle.textContent=photoPanel.hidden?'leave a photo →':'close form ×';if(!photoPanel.hidden)photoPanel.scrollIntoView({behavior:'smooth',block:'start'});});}
 if(photoForm){
   const button=photoForm.querySelector('button[type=submit]');
-  const basinSuccess=document.querySelector('#basin-photo-success');
   const successCard=document.querySelector('#photo-success-card');
   const error=document.querySelector('#photo-form-error');
-  let handledSuccess=false;
 
   photoForm.addEventListener('submit',()=>{
-    handledSuccess=false;
     button.disabled=true;
     button.textContent='sending…';
     if(successCard)successCard.hidden=true;
   });
 
-  const finishSuccess=()=>{
-    if(handledSuccess)return;
-    handledSuccess=true;
+  document.addEventListener('basinjsFormSuccess',event=>{
+    if(event.detail.form!==photoForm)return;
     photoForm.reset();
     photoPanel.hidden=true;
     photoToggle.textContent='leave a photo →';
@@ -125,15 +121,13 @@ if(photoForm){
         photoToggle.scrollIntoView({behavior:'smooth',block:'center'});
       },5000);
     }
-  };
-
-  const observer=new MutationObserver(()=>{
-    if(basinSuccess&&getComputedStyle(basinSuccess).display!=='none')finishSuccess();
-    if(error&&getComputedStyle(error).display!=='none'){
-      button.textContent='send my photo →';
-      button.disabled=false;
-      photoToggle.textContent='close form ×';
-    }
   });
-  observer.observe(photoForm,{subtree:true,attributes:true,attributeFilter:['style','class']});
+
+  document.addEventListener('basinjsFormError',event=>{
+    if(event.detail.form!==photoForm)return;
+    button.textContent='send my photo →';
+    button.disabled=false;
+    photoToggle.textContent='close form ×';
+    if(error)error.style.display='block';
+  });
 }
