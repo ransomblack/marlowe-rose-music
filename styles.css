@@ -447,3 +447,28 @@ footer{padding:65px 6vw 35px;border-top:1px solid var(--line);display:grid;grid-
   .page-turns { font-size: 8px; }
   .connect-footer h2 { font-size: 48px; }
 }
+
+
+/* Mobile hero framing override — the hero photograph is a CSS background */
+@media (max-width: 800px) {
+  .hero {
+    min-height: 112svh !important;
+    height: auto !important;
+    background-image:
+      linear-gradient(90deg, rgba(23,19,17,.72) 0%, rgba(23,19,17,.25) 55%, rgba(23,19,17,.08) 100%),
+      linear-gradient(0deg, rgba(23,19,17,.72) 0%, transparent 38%),
+      url("assets/marlowe-hero.png") !important;
+    background-size: auto 100% !important;
+    background-position: 57% center !important;
+    background-repeat: no-repeat !important;
+    background-color: #171311 !important;
+  }
+  .hero-copy {
+    min-height: 112svh !important;
+    padding: 18vh 7vw 6vh !important;
+    justify-content: flex-end !important;
+  }
+  .hero-quote {
+    margin-bottom: 0 !important;
+  }
+}
