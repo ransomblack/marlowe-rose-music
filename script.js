@@ -123,9 +123,11 @@ if(photoForm){
 
       if(successCard){
         successCard.hidden=false;
+        successCard.style.display='block';
         successCard.scrollIntoView({behavior:'smooth',block:'center'});
         setTimeout(()=>{
           successCard.hidden=true;
+          successCard.style.display='none';
           photoToggle.scrollIntoView({behavior:'smooth',block:'center'});
         },5000);
       }
@@ -138,14 +140,3 @@ if(photoForm){
 }
 
 
-/* Temporary confirmation preview — no submission is sent */
-const successPreviewButton=document.querySelector('#success-preview-button');
-if(successPreviewButton){
-  successPreviewButton.addEventListener('click',()=>{
-    const card=document.querySelector('#photo-success-card');
-    if(!card)return;
-    card.hidden=false;
-    card.style.display='block';
-    card.scrollIntoView({behavior:'smooth',block:'center'});
-  });
-}
