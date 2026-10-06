@@ -62,3 +62,25 @@ collections:
         media_folder: "/assets/photos"
         public_folder: "/assets/photos"
       - { label: "Caption", name: "caption", widget: "text", required: false, hint: "Optional. Add a few words to go with the photo." }
+
+
+  - name: "community_photos"
+    label: "Your Pages"
+    label_singular: "Follower Photo"
+    folder: "_community_photos"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string", hint: "A short private/editor title for this photo." }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", date_format: "MMMM D, YYYY", time_format: "h:mm A", picker_utc: false }
+      - label: "Photo"
+        name: "image"
+        widget: "image"
+        choose_url: false
+        allow_multiple: false
+        media_folder: "/assets/community-photos"
+        public_folder: "/assets/community-photos"
+      - { label: "Shared by", name: "submitted_by", widget: "string", required: false, hint: "Optional. The name the follower wants shown beneath the photo." }
+      - { label: "Caption", name: "caption", widget: "text", required: false, hint: "Optional. The caption that will appear in Your Pages." }
