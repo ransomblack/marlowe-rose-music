@@ -48,6 +48,57 @@
 <div class="book-controls"><button class="book-prev" type="button" aria-label="Previous page">←</button><span class="book-page-count"></span><button class="book-next" type="button" aria-label="Next page">→</button></div>
 </div>
 </section>
+
+<section class="community-album-section">
+  <div class="community-heading">
+    <p class="eyebrow">FROM YOU</p>
+    <h2>A scrapbook made<br><em>with you.</em></h2>
+    <p>Send a photograph. If Megan chooses it for the book, it'll find a home here.</p>
+  </div>
+
+  <section class="scrapbook-shell community-book" id="community-scrapbook">
+    <button class="scrapbook-cover community-cover" id="community-cover" type="button" aria-label="Open Your Pages scrapbook">
+      <div class="cover-frame">
+        <img src="assets/marlowe-rose-logo.png" alt="" class="cover-rose">
+        <span class="cover-name">Marlowe Rose</span><strong>Your Pages</strong><span class="cover-rule"></span><small>photographs you've shared</small>
+      </div><span class="cover-spine"></span>
+    </button>
+    <div class="scrapbook-open" id="community-open" aria-hidden="true">
+      <div class="book-topbar"><button type="button" class="close-community-book">close album ×</button><span>drag or swipe to turn the pages</span></div>
+      <div class="album-scroll" id="community-scroll">
+        {% assign community_sorted = site.community_photos | sort: "date" | reverse %}
+        {% if community_sorted.size > 0 %}
+          {% for photo in community_sorted %}
+          <article class="scrap-page"><div class="scrap-paper"><div class="scrap-photo-wrap scrap-pos-{{ forloop.index | modulo: 4 }}">
+            <button class="album-photo-button" type="button" data-album-image="{{ photo.image | relative_url }}" data-album-caption="{{ photo.caption | default: photo.title | escape }}">
+              <span class="scrap-polaroid"><img src="{{ photo.image | relative_url }}" alt="{{ photo.title | escape }}" loading="lazy"></span>
+            </button>
+            <div class="scrap-caption">{% if photo.caption %}<p>{{ photo.caption }}</p>{% endif %}{% if photo.submitted_by %}<span class="submitted-by">shared by {{ photo.submitted_by }}</span>{% endif %}<time>{{ photo.date | date: "%B %-d, %Y" }}</time></div>
+          </div></div></article>
+          {% endfor %}
+        {% else %}
+          <article class="scrap-page"><div class="scrap-paper scrap-empty">Your first page is waiting.</div></article>
+        {% endif %}
+        <article class="scrap-page"><div class="scrap-paper scrap-last"><img src="assets/marlowe-rose-logo.png" alt=""><p>your page could be next</p></div></article>
+      </div>
+      <div class="book-controls"><button class="community-prev" type="button" aria-label="Previous page">←</button><span class="community-page-count"></span><button class="community-next" type="button" aria-label="Next page">→</button></div>
+    </div>
+  </section>
+
+  <button class="leave-photo-toggle" id="leave-photo-toggle" type="button">leave a photo →</button>
+  <div class="photo-submit-panel" id="photo-submit-panel" hidden>
+    <form class="photo-submit-form" id="photo-submit-form" action="https://usebasin.com/f/6a04897193e7" method="POST" enctype="multipart/form-data" accept-charset="UTF-8">
+      <div class="photo-form-heading"><p class="eyebrow">LEAVE A PHOTO</p><h3>Add a page of your own.</h3><p>Nothing is posted automatically. Megan sees every submission first.</p></div>
+      <div class="photo-form-row"><label><span>Name <em>optional</em></span><input type="text" name="name" autocomplete="name" placeholder="Your name"></label><label><span>Email <em>optional</em></span><input type="email" name="email" autocomplete="email" placeholder="you@example.com"></label></div>
+      <label><span>Your photo</span><input type="file" name="photo" accept="image/jpeg,image/png,image/webp,image/gif" required></label>
+      <label><span>Caption or message <em>optional</em></span><textarea name="caption" rows="4" placeholder="Tell Megan a little about this photo."></textarea></label>
+      <label class="photo-permission"><input type="checkbox" name="permission" value="I give Marlowe Rose permission to display this photo on the website and Marlowe Rose social media." required><span>I own or have permission to share this photo, and I give Marlowe Rose permission to display it on the website and Marlowe Rose social media.</span></label>
+      <input type="hidden" name="_subject" value="New Marlowe Rose Photo Submission">
+      <button class="outline-button photo-submit-button" type="submit">send my photo →</button>
+      <p class="photo-form-status" id="photo-form-status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
 </main>
 <div class="album-lightbox" id="album-lightbox" hidden><button class="album-lightbox-close" type="button" aria-label="Close photo">×</button><button class="album-lightbox-backdrop" type="button" aria-label="Close photo"></button><figure><img src="" alt=""><figcaption></figcaption></figure></div>
 <script src="script.js"></script>
