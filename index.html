@@ -105,8 +105,25 @@
     <p class="eyebrow">YOUR TURN</p>
     <h2>I've told you what's<br>on my mind.</h2>
     <p>What's on yours?</p>
-    <button class="outline-button" type="button">leave a page →</button>
-    <small>Nothing appears publicly without approval.</small>
+
+    <form class="leave-page-form" aria-label="Leave Marlowe a page" onsubmit="return false;">
+      <div class="leave-page-row">
+        <label>
+          <span>Name <em>optional</em></span>
+          <input type="text" name="name" autocomplete="name" placeholder="Your name">
+        </label>
+        <label>
+          <span>Email <em>optional</em></span>
+          <input type="email" name="email" autocomplete="email" placeholder="you@example.com">
+        </label>
+      </div>
+      <label class="leave-page-message">
+        <span>Leave a page…</span>
+        <textarea name="message" rows="6" placeholder="Write whatever you need to say."></textarea>
+      </label>
+      <button class="outline-button leave-page-submit" type="submit" disabled>leave a page →</button>
+      <small class="form-note">This page stays between you and Marlowe. Private messages are coming soon.</small>
+    </form>
   </div>
 </section>
 </main>
