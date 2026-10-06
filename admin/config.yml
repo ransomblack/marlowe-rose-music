@@ -30,12 +30,10 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     extension: "md"
     format: "frontmatter"
-    media_folder: "assets/music"
-    public_folder: "/assets/music"
     fields:
       - { label: "Song title", name: "title", widget: "string" }
       - { label: "Release date", name: "date", widget: "datetime", date_format: "MMMM D, YYYY", time_format: false }
-      - { label: "Cover artwork", name: "cover", widget: "image" }
+      - { label: "Cover artwork", name: "cover", widget: "image", media_folder: "/assets/music", public_folder: "/assets/music", choose_url: false }
       - { label: "Featured / latest release", name: "featured", widget: "boolean", default: false, hint: "Turn this on for the song that should get the large featured treatment." }
       - { label: "Short description", name: "description", widget: "text", required: false }
       - { label: "HyperFollow / presave link", name: "presave_url", widget: "string", required: false, hint: "Paste the DistroKid HyperFollow or presave link here." }
