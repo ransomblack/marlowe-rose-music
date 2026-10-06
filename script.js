@@ -42,3 +42,29 @@ if (leavePageForm) {
     }
   });
 }
+
+
+const albumLightbox = document.querySelector('#album-lightbox');
+if (albumLightbox) {
+  const lightboxImage = albumLightbox.querySelector('figure img');
+  const lightboxCaption = albumLightbox.querySelector('figcaption');
+  const closeLightbox = () => {
+    albumLightbox.hidden = true;
+    document.body.classList.remove('lightbox-open');
+    lightboxImage.src = '';
+  };
+  document.querySelectorAll('.album-photo-button').forEach(button => {
+    button.addEventListener('click', () => {
+      lightboxImage.src = button.dataset.albumImage;
+      lightboxImage.alt = button.dataset.albumCaption || 'Marlowe Rose photo';
+      lightboxCaption.textContent = button.dataset.albumCaption || '';
+      albumLightbox.hidden = false;
+      document.body.classList.add('lightbox-open');
+    });
+  });
+  albumLightbox.querySelector('.album-lightbox-close').addEventListener('click', closeLightbox);
+  albumLightbox.querySelector('.album-lightbox-backdrop').addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !albumLightbox.hidden) closeLightbox();
+  });
+}
