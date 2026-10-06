@@ -197,3 +197,80 @@ footer{padding:65px 6vw 35px;border-top:1px solid var(--line);display:grid;grid-
   .diary-journal{padding:90px 7vw}
   .journal-entry h3{font-size:34px}
 }
+
+
+/* Meet Marlowe */
+.meet-marlowe{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:minmax(320px,.88fr) minmax(430px,1.12fr);
+  gap:clamp(50px,7vw,120px);
+  align-items:center;
+  background:linear-gradient(135deg,#1a1513 0%,#261a1d 58%,#171311 100%);
+  overflow:hidden;
+}
+.meet-photo{
+  margin:0;
+  position:relative;
+  justify-self:end;
+  width:min(520px,38vw);
+}
+.meet-photo:before{
+  content:"";
+  position:absolute;
+  inset:-14px 14px 14px -14px;
+  border:1px solid rgba(179,148,104,.38);
+  z-index:0;
+}
+.meet-photo img{
+  position:relative;
+  z-index:1;
+  width:100%;
+  height:auto;
+  box-shadow:0 34px 80px rgba(0,0,0,.36);
+}
+.meet-copy{max-width:700px}
+.meet-copy h2{
+  font:400 clamp(54px,5.7vw,90px)/.92 "Cormorant Garamond",serif;
+  margin:0 0 38px;
+}
+.meet-copy h2 em{color:#c9a6ae;font-weight:400}
+.meet-story{
+  max-width:650px;
+  border-left:1px solid rgba(179,148,104,.38);
+  padding-left:28px;
+}
+.meet-story p{
+  margin:0 0 17px;
+  font:400 18px/1.62 "Cormorant Garamond",serif;
+  color:#c8bbb0;
+}
+.meet-story p:first-child{
+  font-size:23px;
+  color:#e7d9cd;
+}
+.meet-signoff{
+  margin-top:35px;
+  padding-top:25px;
+  border-top:1px solid rgba(233,223,209,.12);
+  font-family:"Cormorant Garamond",serif;
+}
+.meet-signoff p{margin:0 0 6px;font-size:17px;color:#a9968c}
+.meet-signoff strong{
+  display:block;
+  font-size:clamp(25px,2.2vw,35px);
+  font-style:italic;
+  font-weight:400;
+  color:#d3aab3;
+}
+
+@media(max-width:900px){
+  .meet-marlowe{grid-template-columns:1fr;gap:55px;padding-top:110px}
+  .meet-photo{justify-self:center;width:min(78vw,500px)}
+  .meet-copy{max-width:680px;margin:0 auto}
+}
+@media(max-width:800px){
+  .meet-story{padding-left:20px}
+  .meet-story p{font-size:17px}
+  .meet-story p:first-child{font-size:21px}
+}
