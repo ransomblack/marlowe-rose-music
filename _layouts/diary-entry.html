@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#2b201c">
+  <title>{{ page.title }} | Marlowe Rose</title>
+  <link rel="stylesheet" href="{{ '/styles.css' | relative_url }}">
+</head>
+<body class="diary-page">
+<header class="site-header diary-header">
+  <a class="brand" href="{{ '/index.html' | relative_url }}" aria-label="Marlowe Rose home">
+    <img src="{{ '/assets/marlowe-rose-logo.png' | relative_url }}" alt="" class="brand-rose"><span>Marlowe Rose</span>
+  </a>
+  <nav class="nav"><a href="{{ '/index.html#music' | relative_url }}">music</a><a href="{{ '/diary.html' | relative_url }}">from the diary</a><a href="{{ '/index.html#about' | relative_url }}">meet marlowe</a><a href="{{ '/index.html#connect' | relative_url }}">connect</a></nav>
+</header>
+<main class="entry-page">
+  <article class="entry-page-inner">
+    <a class="quiet-link entry-back" href="{{ '/diary.html' | relative_url }}">← back to the diary</a>
+    <p class="eyebrow">FROM THE DIARY</p>
+    <div class="journal-meta">{{ page.date | date: "%B %d, %Y" | upcase }}</div>
+    <h1>{{ page.title }}</h1>
+    {% if page.excerpt %}<p class="entry-deck">{{ page.excerpt }}</p>{% endif %}
+    <div class="entry-body">{{ content }}</div>
+    <img src="{{ '/assets/marlowe-rose-logo.png' | relative_url }}" alt="" class="entry-rose">
+  </article>
+</main>
+<footer id="connect"><div class="footer-brand"><img src="{{ '/assets/marlowe-rose-logo.png' | relative_url }}" alt=""><span>Marlowe Rose</span></div><p>© 2026 Marlowe Rose</p></footer>
+<script src="{{ '/script.js' | relative_url }}"></script>
+</body>
+</html>
