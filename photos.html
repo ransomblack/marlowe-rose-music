@@ -87,7 +87,7 @@
 
   <button class="leave-photo-toggle" id="leave-photo-toggle" type="button">leave a photo →</button>
   <div class="photo-submit-panel" id="photo-submit-panel" hidden>
-    <form class="photo-submit-form" id="photo-submit-form" action="https://usebasin.com/f/6a04897193e7" method="POST" enctype="multipart/form-data" accept-charset="UTF-8" data-basin-form data-basin-success-action="render" data-basin-success-id="photo-form-success" data-basin-error-id="photo-form-error">
+    <form class="photo-submit-form" id="photo-submit-form" action="https://usebasin.com/f/6a04897193e7" method="POST" enctype="multipart/form-data" accept-charset="UTF-8" data-basin-form data-basin-success-action="render" data-basin-success-id="basin-photo-success" data-basin-error-id="photo-form-error">
       <div class="photo-form-heading"><p class="eyebrow">LEAVE A PHOTO</p><h3>Add a page of your own.</h3><p>Nothing is posted automatically. Megan sees every submission first.</p></div>
       <div class="photo-form-row"><label><span>Name <em>optional</em></span><input type="text" name="name" autocomplete="name" placeholder="Your name"></label><label><span>Email <em>optional</em></span><input type="email" name="email" autocomplete="email" placeholder="you@example.com"></label></div>
       <label><span>Your photo</span><input type="file" name="photo" accept="image/jpeg,image/png,image/webp,image/gif" required></label>
@@ -95,9 +95,10 @@
       <label class="photo-permission"><input type="checkbox" name="permission" value="I give Marlowe Rose permission to display this photo on the website and Marlowe Rose social media." required><span>I own or have permission to share this photo, and I give Marlowe Rose permission to display it on the website and Marlowe Rose social media.</span></label>
       <input type="hidden" name="_subject" value="New Marlowe Rose Photo Submission">
       <button class="outline-button photo-submit-button" type="submit">send my photo →</button>
-      <div class="photo-form-status w-form-done" id="photo-form-success" style="display:none" aria-live="polite"><strong>Your page made it to us. 🌹</strong><span>Thank you for sharing a little piece of your story. We'll take a look before anything is added to the scrapbook.</span></div>
-      <p class="photo-form-status w-form-fail" id="photo-form-error" style="display:none" aria-live="polite">That photo didn’t make it through. Please try again.</p>
+      <div class="w-form-done" id="basin-photo-success" style="display:none" aria-hidden="true"></div>
+      <p class="w-form-fail" id="photo-form-error" style="display:none" aria-live="polite">That photo didn’t make it through. Please try again.</p>
     </form>
+    <div class="photo-form-status photo-success-card" id="photo-success-card" hidden aria-live="polite"><strong>Your page made it to us. 🌹</strong><span>Thank you for sharing a little piece of your story. We'll take a look before anything is added to the scrapbook.</span></div>
   </div>
 </section>
 </main>
