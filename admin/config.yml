@@ -33,7 +33,14 @@ collections:
     fields:
       - { label: "Song title", name: "title", widget: "string" }
       - { label: "Release date", name: "date", widget: "datetime", date_format: "MMMM D, YYYY", time_format: false }
-      - { label: "Cover filename", name: "cover", widget: "string", hint: "First upload the cover to the website assets folder in GitHub. Then enter /assets/ followed by the exact filename, for example: /assets/one-day-or-day-one.png" }
+      - label: "Cover art"
+        name: "cover"
+        widget: "image"
+        choose_url: false
+        allow_multiple: false
+        media_folder: "/assets/music"
+        public_folder: "/assets/music"
+        hint: "Choose the release cover here. The preview may appear broken in the editor, but the image will still upload when you publish."
       - { label: "Featured / latest release", name: "featured", widget: "boolean", default: false, hint: "Turn this on for the song that should get the large featured treatment." }
       - { label: "Short description", name: "description", widget: "text", required: false }
       - { label: "HyperFollow / presave link", name: "presave_url", widget: "string", required: false, hint: "Paste the DistroKid HyperFollow or presave link here." }
