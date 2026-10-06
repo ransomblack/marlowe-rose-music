@@ -30,7 +30,7 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     extension: "md"
     format: "frontmatter"
-    media_folder: "/assets/music"
+    media_folder: "assets/music"
     public_folder: "/assets/music"
     fields:
       - { label: "Song title", name: "title", widget: "string" }
