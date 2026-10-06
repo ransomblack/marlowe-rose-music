@@ -98,36 +98,41 @@ if(photoToggle&&photoPanel){photoToggle.addEventListener('click',()=>{photoPanel
 if(photoForm){
   const button=photoForm.querySelector('button[type=submit]');
   const successCard=document.querySelector('#photo-success-card');
-  const error=document.querySelector('#photo-form-error');
 
-  photoForm.addEventListener('submit',()=>{
+  photoForm.addEventListener('submit',async event=>{
+    event.preventDefault();
+    if(!photoForm.reportValidity())return;
+
     button.disabled=true;
     button.textContent='sending…';
     if(successCard)successCard.hidden=true;
-  });
 
-  document.addEventListener('basinjsFormSuccess',event=>{
-    if(event.detail.form!==photoForm)return;
-    photoForm.reset();
-    photoPanel.hidden=true;
-    photoToggle.textContent='leave a photo →';
-    button.textContent='send my photo →';
-    button.disabled=false;
-    if(successCard){
-      successCard.hidden=false;
-      successCard.scrollIntoView({behavior:'smooth',block:'center'});
-      setTimeout(()=>{
-        successCard.hidden=true;
-        photoToggle.scrollIntoView({behavior:'smooth',block:'center'});
-      },5000);
+    try{
+      const response=await fetch(photoForm.action,{
+        method:'POST',
+        body:new FormData(photoForm),
+        headers:{Accept:'application/json'}
+      });
+      if(!response.ok)throw new Error('Submission failed');
+
+      photoForm.reset();
+      photoPanel.hidden=true;
+      photoToggle.textContent='leave a photo →';
+      button.textContent='send my photo →';
+      button.disabled=false;
+
+      if(successCard){
+        successCard.hidden=false;
+        successCard.scrollIntoView({behavior:'smooth',block:'center'});
+        setTimeout(()=>{
+          successCard.hidden=true;
+          photoToggle.scrollIntoView({behavior:'smooth',block:'center'});
+        },5000);
+      }
+    }catch(error){
+      button.textContent='send my photo →';
+      button.disabled=false;
+      alert("That photo didn't make it through. Please try again.");
     }
-  });
-
-  document.addEventListener('basinjsFormError',event=>{
-    if(event.detail.form!==photoForm)return;
-    button.textContent='send my photo →';
-    button.disabled=false;
-    photoToggle.textContent='close form ×';
-    if(error)error.style.display='block';
   });
 }
