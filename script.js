@@ -76,7 +76,7 @@ if(scrapbook){
  const perView=()=>window.innerWidth<=800?1:2;
  const update=()=>{const page=Math.round(scroll.scrollLeft/(scroll.clientWidth/perView()))+1; const spread=Math.ceil(page/perView()); const total=Math.ceil(pages.length/perView()); count.textContent=spread+' / '+total;};
  cover.addEventListener('click',()=>{scrapbook.classList.add('open');openBook.setAttribute('aria-hidden','false');setTimeout(update,50)});
- close.addEventListener('click',()=>{scrapbook.classList.remove('open');openBook.setAttribute('aria-hidden','true');scroll.scrollLeft=0});
+ close.addEventListener('click',()=>{scrapbook.classList.remove('open');openBook.setAttribute('aria-hidden','true');scroll.scrollLeft=0;document.querySelector('#album-choices')?.scrollIntoView({behavior:'smooth',block:'start'})});
  next.addEventListener('click',()=>scroll.scrollBy({left:scroll.clientWidth,behavior:'smooth'}));
  prev.addEventListener('click',()=>scroll.scrollBy({left:-scroll.clientWidth,behavior:'smooth'}));
  scroll.addEventListener('scroll',()=>requestAnimationFrame(update)); window.addEventListener('resize',update);
@@ -88,7 +88,7 @@ function initScrapbook(shellId,coverId,openId,scrollId,closeSelector,prevSelecto
  const perView=()=>window.innerWidth<=800?1:2;
  const update=()=>{const p=Math.round(scroll.scrollLeft/(scroll.clientWidth/perView()))+1;count.textContent=Math.ceil(p/perView())+' / '+Math.ceil(pages.length/perView());};
  cover.addEventListener('click',()=>{shell.classList.add('open');open.setAttribute('aria-hidden','false');setTimeout(update,50)});
- close.addEventListener('click',()=>{shell.classList.remove('open');open.setAttribute('aria-hidden','true');scroll.scrollLeft=0});
+ close.addEventListener('click',()=>{shell.classList.remove('open');open.setAttribute('aria-hidden','true');scroll.scrollLeft=0;document.querySelector('#album-choices')?.scrollIntoView({behavior:'smooth',block:'start'})});
  next.addEventListener('click',()=>scroll.scrollBy({left:scroll.clientWidth,behavior:'smooth'}));prev.addEventListener('click',()=>scroll.scrollBy({left:-scroll.clientWidth,behavior:'smooth'}));scroll.addEventListener('scroll',()=>requestAnimationFrame(update));window.addEventListener('resize',update);
 }
 initScrapbook('#community-scrapbook','#community-cover','#community-open','#community-scroll','.close-community-book','.community-prev','.community-next','.community-page-count');
