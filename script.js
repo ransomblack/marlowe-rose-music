@@ -95,4 +95,14 @@ initScrapbook('#community-scrapbook','#community-cover','#community-open','#comm
 
 const photoToggle=document.querySelector('#leave-photo-toggle'),photoPanel=document.querySelector('#photo-submit-panel'),photoForm=document.querySelector('#photo-submit-form');
 if(photoToggle&&photoPanel){photoToggle.addEventListener('click',()=>{photoPanel.hidden=!photoPanel.hidden;photoToggle.textContent=photoPanel.hidden?'leave a photo →':'close form ×';if(!photoPanel.hidden)photoPanel.scrollIntoView({behavior:'smooth',block:'start'});});}
-if(photoForm){const status=document.querySelector('#photo-form-status'),button=photoForm.querySelector('button[type=submit]');photoForm.addEventListener('submit',async e=>{e.preventDefault();button.disabled=true;button.textContent='sending…';status.textContent='Uploading your photo…';try{const r=await fetch(photoForm.action,{method:'POST',body:new FormData(photoForm),headers:{Accept:'application/json'}});if(!r.ok)throw new Error('submit failed');photoForm.reset();status.textContent='Your photo made it to Megan. Thank you for leaving a page. 🌹';button.textContent='photo sent ✓';setTimeout(()=>{button.textContent='send my photo →';button.disabled=false},3500)}catch(err){status.textContent='That photo didn’t make it through. Please try again.';button.textContent='send my photo →';button.disabled=false;}});}
+if(photoForm){
+  const button=photoForm.querySelector('button[type=submit]');
+  photoForm.addEventListener('submit',()=>{button.disabled=true;button.textContent='sending…';});
+  const observer=new MutationObserver(()=>{
+    const success=document.querySelector('#photo-form-success');
+    const error=document.querySelector('#photo-form-error');
+    if(success&&getComputedStyle(success).display!=='none'){photoForm.reset();button.textContent='photo sent ✓';setTimeout(()=>{button.textContent='send my photo →';button.disabled=false},3500);}
+    if(error&&getComputedStyle(error).display!=='none'){button.textContent='send my photo →';button.disabled=false;}
+  });
+  observer.observe(photoForm,{subtree:true,attributes:true,attributeFilter:['style','class']});
+}
