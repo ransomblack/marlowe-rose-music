@@ -95,23 +95,32 @@
     <p>As new songs find their way out of the diary, they'll live here.</p>
   </div>
   <div class="catalog-grid" aria-live="polite">
+    {% assign older_shown = 0 %}
     {% for release in music_sorted reversed %}
       {% unless release.path == featured.path %}
-      <article class="catalog-card reveal">
-        {% if release.cover %}<img src="{{ release.cover | relative_url }}" alt="Marlowe Rose — {{ release.title }}">{% endif %}
-        <p class="release-date">{{ release.date | date: "%B %-d, %Y" | upcase }}</p>
-        <h3>{{ release.title }}</h3>
-        {% if release.description %}<p>{{ release.description }}</p>{% endif %}
-        <div class="release-links">
-          {% if release.spotify_url %}<a href="{{ release.spotify_url }}" target="_blank" rel="noopener noreferrer">spotify →</a>{% endif %}
-          {% if release.apple_url %}<a href="{{ release.apple_url }}" target="_blank" rel="noopener noreferrer">apple music →</a>{% endif %}
-          {% if release.amazon_url %}<a href="{{ release.amazon_url }}" target="_blank" rel="noopener noreferrer">amazon music →</a>{% endif %}
-          {% if release.presave_url %}<a href="{{ release.presave_url }}" target="_blank" rel="noopener noreferrer">listen →</a>{% endif %}
-        </div>
-      </article>
+        {% if older_shown < 2 %}
+        <article class="catalog-card reveal">
+          {% if release.cover %}<img src="{{ release.cover | relative_url }}" alt="Marlowe Rose — {{ release.title }}">{% endif %}
+          <p class="release-date">{{ release.date | date: "%B %-d, %Y" | upcase }}</p>
+          <h3>{{ release.title }}</h3>
+          {% if release.description %}<p>{{ release.description }}</p>{% endif %}
+          <div class="release-links">
+            {% if release.spotify_url %}<a href="{{ release.spotify_url }}" target="_blank" rel="noopener noreferrer">spotify →</a>{% endif %}
+            {% if release.apple_url %}<a href="{{ release.apple_url }}" target="_blank" rel="noopener noreferrer">apple music →</a>{% endif %}
+            {% if release.amazon_url %}<a href="{{ release.amazon_url }}" target="_blank" rel="noopener noreferrer">amazon music →</a>{% endif %}
+            {% if release.presave_url %}<a href="{{ release.presave_url }}" target="_blank" rel="noopener noreferrer">listen →</a>{% endif %}
+          </div>
+        </article>
+        {% assign older_shown = older_shown | plus: 1 %}
+        {% endif %}
       {% endunless %}
     {% endfor %}
   </div>
+  {% if site.music.size >= 4 %}
+  <div class="catalog-more reveal">
+    <a class="text-link" href="music.html">view all music <span>→</span></a>
+  </div>
+  {% endif %}
 </section>
 
 <section id="about" class="meet-marlowe section">
