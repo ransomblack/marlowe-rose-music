@@ -1,3 +1,5 @@
+---
+---
 <!doctype html>
 <html lang="en">
 <head>
@@ -56,27 +58,34 @@
   <a class="quiet-link" href="diary.html">from the diary →</a>
 </section>
 
+{% assign music_sorted = site.music | sort: "date" %}
+{% assign featured_releases = music_sorted | where: "featured", true %}
+{% assign featured = featured_releases | last %}
+{% unless featured %}
+  {% assign featured = music_sorted | last %}
+{% endunless %}
+
+{% if featured %}
 <section id="music" class="release section">
   <div class="section-number">01 / listen</div>
   <div class="release-copy reveal">
-    <p class="eyebrow">THE FIRST PAGE</p>
-    <p class="release-date">DEBUT SINGLE · OCTOBER 16, 2026</p>
-    <h2>One Day…<br><em>or Day One?</em></h2>
-    <p class="release-question">How long do you wait for your life to begin<br>before you decide that it already has?</p>
-    <p class="release-context">A song about the quiet space between <em>someday</em> and <em>starting.</em></p>
+    <p class="eyebrow">THE LATEST PAGE</p>
+    <p class="release-date">{% if featured.date > site.time %}COMING {{ featured.date | date: "%B %-d, %Y" | upcase }}{% else %}OUT NOW{% endif %}</p>
+    <h2>{{ featured.title }}</h2>
+    {% if featured.description %}<p class="release-context">{{ featured.description }}</p>{% endif %}
     <div class="release-links">
-      <a href="https://distrokid.com/hyperfollow/marlowerose1/one-day-or-day-one" target="_blank" rel="noopener noreferrer" aria-label="Presave One Day or Day One">presave →</a>
-      <a href="diary.html">the page behind the song →</a>
+      {% if featured.spotify_url %}<a href="{{ featured.spotify_url }}" target="_blank" rel="noopener noreferrer">spotify →</a>{% endif %}
+      {% if featured.apple_url %}<a href="{{ featured.apple_url }}" target="_blank" rel="noopener noreferrer">apple music →</a>{% endif %}
+      {% if featured.amazon_url %}<a href="{{ featured.amazon_url }}" target="_blank" rel="noopener noreferrer">amazon music →</a>{% endif %}
+      {% if featured.presave_url %}<a href="{{ featured.presave_url }}" target="_blank" rel="noopener noreferrer">{% if featured.date > site.time %}presave →{% else %}listen →{% endif %}</a>{% endif %}
+      {% if featured.diary_url %}<a href="{{ featured.diary_url }}">the page behind the song →</a>{% endif %}
     </div>
   </div>
- <div class="release-art reveal">
-  <img
-    class="release-cover"
-    src="assets/one-day-or-day-one.png"
-    alt="Marlowe Rose — One Day… or Day One?"
-  >
-</div>
+  <div class="release-art reveal">
+    <img class="release-cover" src="{{ featured.cover | relative_url }}" alt="Marlowe Rose — {{ featured.title }}">
+  </div>
 </section>
+{% endif %}
 
 <section class="catalog section" aria-label="More music from Marlowe Rose">
   <div class="section-number">02 / more from marlowe</div>
@@ -86,7 +95,22 @@
     <p>As new songs find their way out of the diary, they'll live here.</p>
   </div>
   <div class="catalog-grid" aria-live="polite">
-    <!-- Previous releases move here as new music is released. -->
+    {% for release in music_sorted reversed %}
+      {% unless release.path == featured.path %}
+      <article class="catalog-card reveal">
+        {% if release.cover %}<img src="{{ release.cover | relative_url }}" alt="Marlowe Rose — {{ release.title }}">{% endif %}
+        <p class="release-date">{{ release.date | date: "%B %-d, %Y" | upcase }}</p>
+        <h3>{{ release.title }}</h3>
+        {% if release.description %}<p>{{ release.description }}</p>{% endif %}
+        <div class="release-links">
+          {% if release.spotify_url %}<a href="{{ release.spotify_url }}" target="_blank" rel="noopener noreferrer">spotify →</a>{% endif %}
+          {% if release.apple_url %}<a href="{{ release.apple_url }}" target="_blank" rel="noopener noreferrer">apple music →</a>{% endif %}
+          {% if release.amazon_url %}<a href="{{ release.amazon_url }}" target="_blank" rel="noopener noreferrer">amazon music →</a>{% endif %}
+          {% if release.presave_url %}<a href="{{ release.presave_url }}" target="_blank" rel="noopener noreferrer">listen →</a>{% endif %}
+        </div>
+      </article>
+      {% endunless %}
+    {% endfor %}
   </div>
 </section>
 
