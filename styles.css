@@ -495,3 +495,59 @@ footer{padding:65px 6vw 35px;border-top:1px solid var(--line);display:grid;grid-
     text-align: center;
   }
 }
+
+
+/* Marlowe Rose photo album */
+.album-body{background:#eee2d1;color:#4b3732}
+.album-header{background:rgba(238,226,209,.94);color:#4b3732;border-bottom:1px solid rgba(93,62,55,.12)}
+.album-header .brand,.album-header .nav a,.album-header .menu-button{color:#4b3732}
+.photo-album{min-height:100vh;padding:150px 5vw 100px;background:
+radial-gradient(circle at 20% 10%,rgba(255,255,255,.55),transparent 32%),
+linear-gradient(90deg,rgba(116,83,66,.035) 1px,transparent 1px),
+#eee2d1;background-size:auto,28px 28px,auto}
+.album-intro{text-align:center;max-width:900px;margin:0 auto 85px}
+.album-rose{width:52px;height:68px;object-fit:contain;opacity:.8}
+.album-intro .eyebrow{color:#8b4b59;margin:14px 0 18px}
+.album-intro h1{margin:0;font:400 clamp(54px,7vw,96px)/.9 "Cormorant Garamond",serif;color:#51363c}
+.album-intro h1 em{font-weight:400;color:#8b4b59}
+.album-intro>p:last-child{font:400 21px/1.5 "Cormorant Garamond",serif;font-style:italic;margin:28px 0 0;color:#765b54}
+.album-book{position:relative;max-width:1320px;margin:0 auto;padding:80px 6vw 110px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:120px 9vw;background:
+linear-gradient(90deg,transparent 49.75%,rgba(83,57,49,.11) 50%,rgba(255,255,255,.38) 50.15%,transparent 50.45%),
+linear-gradient(#f7f0e4,#f1e6d5);box-shadow:0 30px 80px rgba(73,51,42,.18),inset 0 0 60px rgba(105,77,61,.08);border-radius:4px}
+.album-book:before{content:"";position:absolute;inset:18px;border:1px solid rgba(119,84,70,.08);pointer-events:none}
+.album-photo{position:relative;align-self:center;justify-self:center;width:min(100%,480px)}
+.album-photo-1{transform:rotate(-1.5deg)}
+.album-photo-2{transform:rotate(1.2deg);margin-top:65px}
+.album-photo-3{transform:rotate(.8deg);width:88%}
+.album-photo-4{transform:rotate(-1deg);margin-top:-20px}
+.album-photo-0{transform:rotate(1.4deg);width:92%}
+.album-photo-button{display:block;width:100%;padding:0;border:0;background:transparent;cursor:zoom-in}
+.album-mat{display:block;padding:12px 12px 38px;background:#fbf8f1;box-shadow:0 15px 30px rgba(66,44,36,.2),0 2px 4px rgba(66,44,36,.12);transition:transform .25s ease,box-shadow .25s ease}
+.album-photo-button:hover .album-mat{transform:translateY(-4px);box-shadow:0 22px 38px rgba(66,44,36,.24),0 3px 5px rgba(66,44,36,.12)}
+.album-mat img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain;background:#eee7dc}
+.album-note{text-align:center;margin:17px auto 0;max-width:90%;transform:rotate(.3deg)}
+.album-note p{margin:0 0 5px;font:italic 22px/1.25 "Cormorant Garamond",serif;color:#5d4141}
+.album-note time{font:500 9px/1 Inter,system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#9b7468}
+.album-end{text-align:center;margin:55px auto 0;color:#9a756a;font:500 9px/1 Inter,system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase}
+.album-end img{display:block;width:32px;height:42px;object-fit:contain;margin:16px auto 0;opacity:.55}
+.album-empty{grid-column:1/-1;text-align:center;padding:120px 20px;font:italic 26px "Cormorant Garamond",serif;color:#87675e}
+.album-lightbox[hidden]{display:none}
+.album-lightbox{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:6vh 6vw}
+.album-lightbox-backdrop{position:absolute;inset:0;border:0;background:rgba(25,18,17,.91);cursor:zoom-out}
+.album-lightbox figure{position:relative;z-index:1;margin:0;max-width:min(1100px,88vw);max-height:88vh;text-align:center}
+.album-lightbox figure img{display:block;max-width:100%;max-height:78vh;margin:auto;box-shadow:0 24px 70px rgba(0,0,0,.4)}
+.album-lightbox figcaption{margin-top:16px;color:#f1e4d6;font:italic 20px "Cormorant Garamond",serif}
+.album-lightbox-close{position:absolute;z-index:2;top:20px;right:28px;border:0;background:transparent;color:#fff;font:300 42px/1 serif;cursor:pointer}
+body.lightbox-open{overflow:hidden}
+@media(max-width:800px){
+.album-header .nav{background:#eee2d1}
+.photo-album{padding:115px 5vw 70px}
+.album-intro{margin-bottom:48px;padding:0 3vw}
+.album-intro h1{font-size:clamp(48px,13vw,68px)}
+.album-book{display:block;padding:60px 8vw 75px;background:linear-gradient(#f7f0e4,#f1e6d5);box-shadow:0 20px 50px rgba(73,51,42,.16)}
+.album-photo,.album-photo-2,.album-photo-3,.album-photo-4,.album-photo-0{width:100%;max-width:480px;margin:0 auto 80px;transform:rotate(-.7deg)}
+.album-photo:nth-child(even){transform:rotate(.7deg)}
+.album-photo:last-child{margin-bottom:0}
+.album-mat{padding:9px 9px 30px}
+.album-note p{font-size:20px}
+}
