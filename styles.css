@@ -588,3 +588,58 @@ body.lightbox-open{overflow:hidden}
 .scrapbook-shell:not(.open) .scrapbook-cover { display: block !important; }
 .scrapbook-shell.open .scrapbook-cover { display: none !important; }
 .scrapbook-shell.open .scrapbook-open { display: block !important; }
+
+
+/* Make the closed scrapbook read as a physical book */
+.scrapbook-cover{
+  width:min(570px,76vw);
+  aspect-ratio:1.18/1;
+  border-radius:5px 20px 20px 5px;
+  padding:30px 34px 30px 50px;
+  transform:rotate(-1deg);
+  background:
+    linear-gradient(90deg,rgba(28,14,18,.34) 0 16px,rgba(255,255,255,.06) 17px,transparent 25px),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,rgba(0,0,0,.018) 1px 3px),
+    linear-gradient(135deg,#6c424e,#7c4b58 52%,#593640);
+  box-shadow:
+    -13px 15px 0 -7px #d8cbb9,
+    -17px 19px 0 -8px #bba992,
+    0 38px 60px rgba(57,37,33,.34),
+    inset 7px 0 14px rgba(0,0,0,.22),
+    inset -4px -3px 10px rgba(0,0,0,.15),
+    inset 2px 2px 2px rgba(255,255,255,.08);
+}
+.scrapbook-cover:before{
+  content:"";
+  position:absolute;
+  top:10px;bottom:10px;right:-10px;
+  width:14px;
+  border-radius:0 7px 7px 0;
+  background:repeating-linear-gradient(0deg,#f1e7d8 0 3px,#d7c7b2 3px 4px);
+  box-shadow:2px 2px 5px rgba(54,35,30,.22);
+  z-index:-1;
+}
+.scrapbook-cover:after{
+  content:"";
+  position:absolute;
+  left:27px;top:0;bottom:0;width:2px;
+  background:linear-gradient(rgba(255,255,255,.14),rgba(31,15,20,.28),rgba(255,255,255,.1));
+  box-shadow:5px 0 7px rgba(24,12,15,.13);
+}
+.scrapbook-cover:hover{transform:translateY(-7px) rotate(-1deg) rotateX(3deg)}
+.cover-frame{
+  border:1px solid rgba(223,178,156,.34);
+  box-shadow:inset 0 0 0 5px rgba(44,25,30,.09);
+}
+.cover-spine{
+  left:13px;width:17px;
+  border-left:1px solid rgba(255,255,255,.08);
+  border-right:1px solid rgba(0,0,0,.28);
+  box-shadow:4px 0 8px rgba(0,0,0,.12);
+}
+.cover-rose{width:36px;height:46px;margin-bottom:14px}
+@media(max-width:800px){
+ .scrapbook-cover{width:min(82vw,500px);padding:22px 24px 22px 42px}
+ .scrapbook-cover:after{left:22px}
+ .cover-rose{width:30px;height:38px}
+}
