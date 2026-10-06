@@ -1,6 +1,6 @@
 backend:
-  name: github
-  repo: ransomblack/marlowe-rose-music
+  name: turbo-github
+  turbo_site_id: a2795bb2-4a72-4f8c-97b5-be4941ef04c5
   branch: main
 
 publish_mode: simple
