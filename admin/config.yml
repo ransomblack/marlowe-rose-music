@@ -18,7 +18,7 @@ collections:
     format: "frontmatter"
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime", date_format: "MMMM D, YYYY", time_format: "h:mm A" }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", date_format: "MMMM D, YYYY", time_format: "h:mm A", picker_utc: false }
       - { label: "Short excerpt", name: "excerpt", widget: "text", required: false, hint: "Optional. A short thought shown before the full entry." }
       - { label: "Entry", name: "body", widget: "markdown" }
 
