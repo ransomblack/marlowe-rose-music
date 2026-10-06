@@ -95,6 +95,17 @@ initScrapbook('#community-scrapbook','#community-cover','#community-open','#comm
 
 const photoToggle=document.querySelector('#leave-photo-toggle'),photoPanel=document.querySelector('#photo-submit-panel'),photoForm=document.querySelector('#photo-submit-form');
 if(photoToggle&&photoPanel){photoToggle.addEventListener('click',()=>{photoPanel.hidden=!photoPanel.hidden;photoToggle.textContent=photoPanel.hidden?'leave a photo →':'close form ×';if(!photoPanel.hidden)photoPanel.scrollIntoView({behavior:'smooth',block:'start'});});}
+const photoUpload=document.querySelector('#photo-upload');
+if(photoUpload){
+  photoUpload.addEventListener('change',()=>{
+    const file=photoUpload.files && photoUpload.files[0];
+    if(file && file.size>7.5*1024*1024){
+      photoUpload.value='';
+      alert('Please choose a photo smaller than 7.5 MB so it can be delivered with the submission email.');
+    }
+  });
+}
+
 if(photoForm){
   const button=photoForm.querySelector('button[type=submit]');
   const successCard=document.querySelector('#photo-success-card');
