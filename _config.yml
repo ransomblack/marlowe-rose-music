@@ -4,6 +4,8 @@ collections:
     permalink: /diary/:name/
   music:
     output: false
+  photos:
+    output: false
 
 defaults:
   - scope:
