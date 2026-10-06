@@ -781,3 +781,36 @@ body.lightbox-open{overflow:hidden}
   .music-archive .catalog-grid{grid-template-columns:1fr;max-width:430px;gap:46px}
   .music-archive .catalog-card h3{font-size:32px}
 }
+
+/* Two-volume photo album chooser */
+.album-choices{
+  max-width:1240px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:56px;
+  align-items:start;
+}
+.album-choices .scrapbook-shell,
+.album-choices .community-album-section{min-width:0;margin:0;padding:0;border:0}
+.album-choices .scrapbook-cover{width:min(100%,540px)}
+.album-choices .community-book{max-width:none}
+.album-choices:has(.scrapbook-shell.open){
+  display:block;
+}
+.album-choices:has(.scrapbook-shell.open)>.scrapbook-shell:not(.open),
+.album-choices:has(.scrapbook-shell.open)>.community-album-section:has(.scrapbook-shell:not(.open)){
+  display:none;
+}
+.album-choices:has(.scrapbook-shell.open)>.scrapbook-shell.open,
+.album-choices:has(.scrapbook-shell.open)>.community-album-section:has(.scrapbook-shell.open){
+  width:100%;
+  max-width:1120px;
+  margin:0 auto;
+}
+.album-choices:has(#community-scrapbook.open) .leave-photo-toggle{display:block}
+.album-choices .leave-photo-toggle{margin-top:34px}
+@media(max-width:800px){
+  .album-choices{grid-template-columns:1fr;gap:58px}
+  .album-choices .scrapbook-cover{width:min(82vw,500px)}
+}
