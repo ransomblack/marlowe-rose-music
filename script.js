@@ -81,3 +81,18 @@ if(scrapbook){
  prev.addEventListener('click',()=>scroll.scrollBy({left:-scroll.clientWidth,behavior:'smooth'}));
  scroll.addEventListener('scroll',()=>requestAnimationFrame(update)); window.addEventListener('resize',update);
 }
+
+function initScrapbook(shellId,coverId,openId,scrollId,closeSelector,prevSelector,nextSelector,countSelector){
+ const shell=document.querySelector(shellId); if(!shell)return;
+ const cover=document.querySelector(coverId),open=document.querySelector(openId),scroll=document.querySelector(scrollId),close=document.querySelector(closeSelector),prev=document.querySelector(prevSelector),next=document.querySelector(nextSelector),count=document.querySelector(countSelector),pages=[...scroll.querySelectorAll('.scrap-page')];
+ const perView=()=>window.innerWidth<=800?1:2;
+ const update=()=>{const p=Math.round(scroll.scrollLeft/(scroll.clientWidth/perView()))+1;count.textContent=Math.ceil(p/perView())+' / '+Math.ceil(pages.length/perView());};
+ cover.addEventListener('click',()=>{shell.classList.add('open');open.setAttribute('aria-hidden','false');setTimeout(update,50)});
+ close.addEventListener('click',()=>{shell.classList.remove('open');open.setAttribute('aria-hidden','true');scroll.scrollLeft=0});
+ next.addEventListener('click',()=>scroll.scrollBy({left:scroll.clientWidth,behavior:'smooth'}));prev.addEventListener('click',()=>scroll.scrollBy({left:-scroll.clientWidth,behavior:'smooth'}));scroll.addEventListener('scroll',()=>requestAnimationFrame(update));window.addEventListener('resize',update);
+}
+initScrapbook('#community-scrapbook','#community-cover','#community-open','#community-scroll','.close-community-book','.community-prev','.community-next','.community-page-count');
+
+const photoToggle=document.querySelector('#leave-photo-toggle'),photoPanel=document.querySelector('#photo-submit-panel'),photoForm=document.querySelector('#photo-submit-form');
+if(photoToggle&&photoPanel){photoToggle.addEventListener('click',()=>{photoPanel.hidden=!photoPanel.hidden;photoToggle.textContent=photoPanel.hidden?'leave a photo →':'close form ×';if(!photoPanel.hidden)photoPanel.scrollIntoView({behavior:'smooth',block:'start'});});}
+if(photoForm){const status=document.querySelector('#photo-form-status'),button=photoForm.querySelector('button[type=submit]');photoForm.addEventListener('submit',async e=>{e.preventDefault();button.disabled=true;button.textContent='sending…';status.textContent='Uploading your photo…';try{const r=await fetch(photoForm.action,{method:'POST',body:new FormData(photoForm),headers:{Accept:'application/json'}});if(!r.ok)throw new Error('submit failed');photoForm.reset();status.textContent='Your photo made it to Megan. Thank you for leaving a page. 🌹';button.textContent='photo sent ✓';setTimeout(()=>{button.textContent='send my photo →';button.disabled=false},3500)}catch(err){status.textContent='That photo didn’t make it through. Please try again.';button.textContent='send my photo →';button.disabled=false;}});}
