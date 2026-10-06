@@ -1,0 +1,73 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f3eadc">
+  <meta name="description" content="Marlowe Rose — photographs from the pages in between.">
+  <title>Photos | Marlowe Rose</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="album-body">
+<header class="site-header album-header">
+  <a class="brand" href="index.html" aria-label="Marlowe Rose home">
+    <img src="assets/marlowe-rose-logo.png" alt="" class="brand-rose">
+    <span>Marlowe Rose</span>
+  </a>
+  <button class="menu-button" aria-label="Open menu" aria-expanded="false">menu</button>
+  <nav class="nav" aria-label="Main navigation">
+    <a href="index.html#music">music</a><a href="diary.html">from the diary</a><a href="photos.html" aria-current="page">photos</a><a href="index.html#about">meet marlowe</a><a href="index.html#leave-a-page">leave a page</a><a href="index.html#connect">connect</a>
+  </nav>
+</header>
+
+<main class="photo-album">
+  <section class="album-intro">
+    <img src="assets/marlowe-rose-logo.png" alt="" class="album-rose">
+    <p class="eyebrow">THE PHOTO ALBUM</p>
+    <h1>Little pieces of<br><em>the life between songs.</em></h1>
+    <p>Some pages don't need many words.</p>
+  </section>
+
+  {% assign photos_sorted = site.photos | sort: "date" | reverse %}
+  <section class="album-book" aria-label="Marlowe Rose photo album">
+    {% if photos_sorted.size > 0 %}
+      {% for photo in photos_sorted %}
+        <article class="album-photo reveal album-photo-{{ forloop.index | modulo: 5 }}">
+          <button class="album-photo-button" type="button" data-album-image="{{ photo.image | relative_url }}" data-album-caption="{{ photo.caption | default: photo.title | escape }}" aria-label="View {{ photo.title | escape }} larger">
+            <span class="album-mat">
+              <img src="{{ photo.image | relative_url }}" alt="{{ photo.title | escape }}" loading="lazy">
+            </span>
+          </button>
+          <div class="album-note">
+            {% if photo.caption %}<p>{{ photo.caption }}</p>{% endif %}
+            <time datetime="{{ photo.date | date_to_xmlschema }}">{{ photo.date | date: "%B %-d, %Y" }}</time>
+          </div>
+        </article>
+      {% endfor %}
+    {% else %}
+      <div class="album-empty">
+        <p>The album is waiting for its first photograph.</p>
+      </div>
+    {% endif %}
+  </section>
+
+  <div class="album-end">
+    <span>more memories soon</span>
+    <img src="assets/marlowe-rose-logo.png" alt="">
+  </div>
+</main>
+
+<div class="album-lightbox" id="album-lightbox" hidden>
+  <button class="album-lightbox-close" type="button" aria-label="Close photo">×</button>
+  <button class="album-lightbox-backdrop" type="button" aria-label="Close photo"></button>
+  <figure>
+    <img src="" alt="">
+    <figcaption></figcaption>
+  </figure>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
