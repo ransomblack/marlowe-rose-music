@@ -97,7 +97,8 @@ const photoToggle=document.querySelector('#leave-photo-toggle'),photoPanel=docum
 if(photoToggle&&photoPanel){photoToggle.addEventListener('click',()=>{photoPanel.hidden=!photoPanel.hidden;photoToggle.textContent=photoPanel.hidden?'leave a photo →':'close form ×';if(!photoPanel.hidden)photoPanel.scrollIntoView({behavior:'smooth',block:'start'});});}
 if(photoForm){
   const button=photoForm.querySelector('button[type=submit]');
-  const success=document.querySelector('#photo-form-success');
+  const basinSuccess=document.querySelector('#basin-photo-success');
+  const successCard=document.querySelector('#photo-success-card');
   const error=document.querySelector('#photo-form-error');
   let handledSuccess=false;
 
@@ -105,31 +106,29 @@ if(photoForm){
     handledSuccess=false;
     button.disabled=true;
     button.textContent='sending…';
+    if(successCard)successCard.hidden=true;
   });
 
   const finishSuccess=()=>{
     if(handledSuccess)return;
     handledSuccess=true;
     photoForm.reset();
-    button.textContent='photo sent ✓';
+    photoPanel.hidden=true;
     photoToggle.textContent='leave a photo →';
-    photoToggle.disabled=true;
-    if(success){
-      success.style.display='block';
-      success.scrollIntoView({behavior:'smooth',block:'center'});
+    button.textContent='send my photo →';
+    button.disabled=false;
+    if(successCard){
+      successCard.hidden=false;
+      successCard.scrollIntoView({behavior:'smooth',block:'center'});
+      setTimeout(()=>{
+        successCard.hidden=true;
+        photoToggle.scrollIntoView({behavior:'smooth',block:'center'});
+      },5000);
     }
-    setTimeout(()=>{
-      photoPanel.hidden=true;
-      if(success)success.style.display='none';
-      button.textContent='send my photo →';
-      button.disabled=false;
-      photoToggle.disabled=false;
-      photoToggle.scrollIntoView({behavior:'smooth',block:'center'});
-    },5000);
   };
 
   const observer=new MutationObserver(()=>{
-    if(success&&getComputedStyle(success).display!=='none')finishSuccess();
+    if(basinSuccess&&getComputedStyle(basinSuccess).display!=='none')finishSuccess();
     if(error&&getComputedStyle(error).display!=='none'){
       button.textContent='send my photo →';
       button.disabled=false;
