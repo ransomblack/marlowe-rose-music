@@ -2,6 +2,8 @@ collections:
   diary:
     output: true
     permalink: /diary/:name/
+  music:
+    output: false
 
 defaults:
   - scope:
