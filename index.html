@@ -143,7 +143,10 @@
     <h2>I've told you what's<br>on my mind.</h2>
     <p>What's on yours?</p>
 
-    <form class="leave-page-form" aria-label="Leave Marlowe a page" onsubmit="return false;">
+    <form class="leave-page-form" id="leave-page-form" aria-label="Leave Marlowe a page">
+      <input type="hidden" name="access_key" value="aec29760-e368-4b59-be01-dd719d5a3f60">
+      <input type="hidden" name="subject" value="Someone Left Marlowe a Page 🌹">
+      <input type="checkbox" name="botcheck" class="hidden" style="display:none">
       <div class="leave-page-row">
         <label>
           <span>Name <em>optional</em></span>
@@ -158,8 +161,8 @@
         <span>Leave a page…</span>
         <textarea name="message" rows="6" placeholder="Write whatever you need to say."></textarea>
       </label>
-      <button class="outline-button leave-page-submit" type="submit" disabled>leave a page →</button>
-      <small class="form-note">This page stays between you and Marlowe. Private messages are coming soon.</small>
+      <button class="outline-button leave-page-submit" type="submit">leave a page →</button>
+      <small class="form-note" id="leave-page-status" aria-live="polite">This page stays between you and Marlowe.</small>
     </form>
   </div>
 </section>
