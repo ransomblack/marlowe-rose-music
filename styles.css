@@ -332,3 +332,22 @@ footer{padding:65px 6vw 35px;border-top:1px solid var(--line);display:grid;grid-
 .connect-signoff span{font:italic 18px "Cormorant Garamond",serif;color:#a9858d}
 .connect-footer .copyright{align-self:stretch;margin:75px 0 0;padding-top:24px;border-top:1px solid rgba(233,223,209,.08);font-size:9px;color:#625c58;text-align:left}
 @media(max-width:800px){.connect-footer{min-height:70vh;padding:85px 7vw 28px}.connect-links{gap:16px 22px}.connect-signoff{margin-top:50px}.connect-footer .copyright{margin-top:60px;text-align:center}}
+
+
+/* Leave a Page */
+.write-back{min-height:92vh;background:radial-gradient(circle at 50% 45%,rgba(127,57,72,.12),transparent 38%),linear-gradient(180deg,#201719,#171311)}
+.write-copy{width:min(760px,100%)}
+.leave-page-form{margin:48px auto 0;width:min(680px,100%);text-align:left}
+.leave-page-row{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.leave-page-form label{display:block}
+.leave-page-form label>span{display:block;margin-bottom:10px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#a9968c}
+.leave-page-form label>span em{font:italic 12px "Cormorant Garamond",serif;letter-spacing:.04em;text-transform:none;color:#756963;margin-left:6px}
+.leave-page-form input,.leave-page-form textarea{width:100%;border:0;border-bottom:1px solid rgba(179,148,104,.32);border-radius:0;background:rgba(255,255,255,.025);color:#e9dfd1;font:400 18px/1.5 "Cormorant Garamond",serif;padding:13px 14px;outline:none;transition:border-color .25s,background .25s}
+.leave-page-form textarea{resize:vertical;min-height:150px}
+.leave-page-form input::placeholder,.leave-page-form textarea::placeholder{color:#746965;font-style:italic}
+.leave-page-form input:focus,.leave-page-form textarea:focus{border-color:#a76775;background:rgba(255,255,255,.04)}
+.leave-page-message{margin-top:28px}
+.leave-page-submit{display:block;margin:30px auto 14px}
+.leave-page-submit:disabled{opacity:.42;cursor:not-allowed}
+.form-note{display:block!important;text-align:center;color:#766d68!important;font-size:10px!important;letter-spacing:.04em}
+@media(max-width:650px){.leave-page-row{grid-template-columns:1fr;gap:24px}.leave-page-form{margin-top:38px}}
