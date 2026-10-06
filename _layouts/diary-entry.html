@@ -23,6 +23,28 @@
     {% if page.excerpt %}<p class="entry-deck">{{ page.excerpt }}</p>{% endif %}
     <div class="entry-body">{{ content }}</div>
     <img src="{{ '/assets/marlowe-rose-logo.png' | relative_url }}" alt="" class="entry-rose">
+    {% assign entries = site.diary | sort: "date" %}
+    {% for entry in entries %}
+      {% if entry.url == page.url %}
+        {% assign current_index = forloop.index0 %}
+        {% assign page_number = forloop.index %}
+      {% endif %}
+    {% endfor %}
+    {% assign previous_index = current_index | minus: 1 %}
+    {% assign next_index = current_index | plus: 1 %}
+    <nav class="page-turns" aria-label="Diary pages">
+      {% if current_index > 0 %}
+        {% assign previous = entries[previous_index] %}
+        <a href="{{ previous.url | relative_url }}">← Previous Page</a>
+      {% else %}<span></span>{% endif %}
+      <span class="page-count">Page {{ page_number }}</span>
+      {% if next_index < entries.size %}
+        {% assign next = entries[next_index] %}
+        <a href="{{ next.url | relative_url }}">Next Page →</a>
+      {% else %}
+        <a href="{{ '/diary.html#entries' | relative_url }}">Latest Page</a>
+      {% endif %}
+    </nav>
   </article>
 </main>
 <footer id="connect"><div class="footer-brand"><img src="{{ '/assets/marlowe-rose-logo.png' | relative_url }}" alt=""><span>Marlowe Rose</span></div><p>© 2026 Marlowe Rose</p></footer>
