@@ -230,5 +230,20 @@
   <p class="copyright">© 2026 Marlowe Rose</p>
 </footer>
 <script src="script.js"></script>
+<script>
+/* Keep MailerLite opt-in consent legible after its dynamic styles load. */
+(function(){
+ const root=document.querySelector('.marlowe-newsletter');
+ if(!root)return;
+ function fixConsent(){
+  root.querySelectorAll('.ml-form-checkboxRow, .ml-form-checkboxRow label, .ml-form-checkboxRow label *, .ml-form-embedPermissions, .ml-form-embedPermissionsContent, .ml-form-embedPermissionsContent *, .ml-form-embedPermissionsText, .ml-form-embedPermissionsText *').forEach(el=>{
+   if(el.matches('input,button,svg,path'))return;
+   el.style.setProperty('color','#f2d8d3','important');
+  });
+ }
+ new MutationObserver(fixConsent).observe(root,{childList:true,subtree:true});
+ fixConsent();
+})();
+</script>
 </body>
 </html>
