@@ -39,7 +39,7 @@ def main():
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;background:#f5f0ed;color:#302423;font-family:Georgia,serif;">
 <div style="max-width:560px;margin:32px auto;padding:38px 30px;background:#fffaf7;border:1px solid #e8dcd6;">
-<p style="font:12px Arial,sans-serif;letter-spacing:3px;color:#865d66;text-align:center;">MARLOWE ROSE · FROM THE DIARY</p>
+<p style="text-align:center;margin:0 0 14px;"><img src="https://marlowerosemusic.com/assets/marlowe-rose-logo.png" alt="Marlowe Rose rose logo" width="76" style="display:inline-block;width:76px;height:auto;border:0;"></p>\n<p style="font:12px Arial,sans-serif;letter-spacing:3px;color:#865d66;text-align:center;">MARLOWE ROSE · FROM THE DIARY</p>
 <h1 style="font-size:27px;line-height:1.3;font-weight:normal;">{escape(INTRO)}</h1>
 <p style="line-height:1.7;">{escape(BLURB)}</p>
 <h2 style="font-size:22px;font-weight:normal;">{escape(meta['title'])}</h2>
