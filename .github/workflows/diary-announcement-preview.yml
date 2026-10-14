@@ -11,31 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Preview newest diary announcement (no email sent)
-        shell: python
-        run: |
-          from pathlib import Path
-          import re
-          files = sorted(Path("_diary").glob("*.md"))
-          if not files:
-              raise SystemExit("No diary entries found")
-          entries = []
-          for file in files:
-              raw = file.read_text(encoding="utf-8")
-              match = re.match(r"\A---\s*\n(.*?)\n---\s*\n", raw, re.S)
-              if not match:
-                  continue
-              front = match.group(1)
-              def field(name):
-                  m = re.search(rf"(?m)^{name}:\s*(.*)$", front)
-                  return m.group(1).strip().strip("'\"") if m else ""
-              entries.append((field("date"), file, field("title"), field("excerpt")))
-          if not entries:
-              raise SystemExit("No valid diary frontmatter found")
-          date, file, title, excerpt = max(entries, key=lambda e:e[0])
-          print("DRY RUN ONLY - no emails or API calls")
-          print("File:", file)
-          print("Title:", title)
-          print("Date:", date)
-          print("Excerpt:", excerpt)
-          print("Recipient group: to be verified before enabling sending")
+      - name: Generate diary email preview (no email sent)
+        run: python3 scripts/preview_diary_email.py
+      - name: Save email preview for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: diary-email-preview
+          path: diary-email-preview/
+          retention-days: 14
