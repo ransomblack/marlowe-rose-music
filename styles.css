@@ -849,3 +849,10 @@ body.lightbox-open{overflow:hidden}
 @media (max-width: 800px) {
   .hero .signature-rose { display: none !important; }
 }
+
+/* Center "to my" beneath "Welcome" on phones only. */
+@media (max-width: 800px) {
+  .hero h1 .welcome-word { display: block; width: max-content; }
+  .hero h1 .welcome-to-my { display: block; width: max-content; margin-left: 0; text-align: center; width: 100%; }
+  .hero h1 .welcome-to-my + br { display: none; }
+}
