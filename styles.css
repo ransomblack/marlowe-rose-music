@@ -844,3 +844,8 @@ body.lightbox-open{overflow:hidden}
     opacity: .8;
   }
 }
+
+/* Hide the decorative hero rose on phones; keep header logo and desktop unchanged. */
+@media (max-width: 800px) {
+  .hero .signature-rose { display: none !important; }
+}
