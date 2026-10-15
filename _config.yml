@@ -1,3 +1,4 @@
+timezone: America/New_York
 collections:
   diary:
     output: true
