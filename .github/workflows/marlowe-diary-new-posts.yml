@@ -14,23 +14,49 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Identify new diary files only
+      - name: Identify new diary files and check recipients (no emails)
         env:
           BEFORE: ${{ github.event.before }}
           AFTER: ${{ github.sha }}
           EVENT: ${{ github.event_name }}
+          DIARY_SECRET: ${{ secrets.MARLOWE_DIARY_WEBHOOK_SECRET }}
         run: |
-          if [ "$EVENT" = "workflow_dispatch" ]; then
-            echo "Manual check only; no historical posts announced."
-            exit 0
-          fi
-          if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
-            echo "Initial branch push skipped."
-            exit 0
-          fi
-          git diff --name-only --diff-filter=A "$BEFORE" "$AFTER" -- '_diary/*.md' | tee new-diary-posts.txt
-          if [ ! -s new-diary-posts.txt ]; then
-            echo "No new diary entries; edits and deletions ignored."
-          else
-            echo "New diary entries detected. Announcements remain disabled."
-          fi
+          python3 - <<'PY'
+          import json, os, pathlib, re, subprocess, sys, urllib.request, urllib.error
+          if os.environ["EVENT"] == "workflow_dispatch":
+              print("Manual test: no new post, no email sent.")
+              sys.exit(0)
+          before, after = os.environ["BEFORE"], os.environ["AFTER"]
+          if before == "0" * 40:
+              print("Initial branch push skipped.")
+              sys.exit(0)
+          if not re.fullmatch("[a-f0-9]{40}", before) or not re.fullmatch("[a-f0-9]{40}", after):
+              sys.exit("Invalid commit range")
+          files = subprocess.check_output(["git", "diff", "--name-only", "--diff-filter=A", before, after, "--", "_diary/"], text=True).splitlines()
+          files = [p for p in files if re.fullmatch(r"_diary/[A-Za-z0-9_.-]+[.]md", p)]
+          if not files:
+              print("No newly added diary entries. Edits and deletions ignored.")
+              sys.exit(0)
+          secret = os.environ.get("DIARY_SECRET", "")
+          if not secret:
+              sys.exit("Missing diary webhook secret")
+          for filename in files:
+              raw = pathlib.Path(filename).read_text(encoding="utf-8")
+              match = re.match(r"\A---\s*\n(.*?)\n---\s*\n", raw, re.S)
+              if not match:
+                  sys.exit("Missing frontmatter in " + filename)
+              def field(key):
+                  found = re.search(r"(?m)^" + key + r":\s*(.*)$", match.group(1))
+                  return found.group(1).strip().strip("'\"") if found else ""
+              payload = {"mode": "preview", "slug": pathlib.Path(filename).stem, "title": field("title"), "excerpt": field("excerpt") or "A new page from Marlowe's diary."}
+              req = urllib.request.Request("https://pvtknpwjtspqftwhpsrz.supabase.co/functions/v1/marlowe-diary-announcements", data=json.dumps(payload).encode(), headers={"Content-Type": "application/json", "x-diary-secret": secret}, method="POST")
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as response:
+                      result = json.load(response)
+              except urllib.error.HTTPError as error:
+                  sys.exit("Supabase preview failed with HTTP " + str(error.code))
+              if result.get("mode") != "preview" or result.get("emails_sent") != 0:
+                  sys.exit("Unexpected response from Supabase")
+              print("New diary entry:", filename, "Eligible subscribers:", result.get("eligible_count"), "Emails sent: 0")
+          print("Preview checks completed; automatic sending remains off.")
+          PY
