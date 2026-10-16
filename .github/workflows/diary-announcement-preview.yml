@@ -2,6 +2,10 @@ name: Diary announcement preview
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '_diary/**'
 
 permissions:
   contents: read
