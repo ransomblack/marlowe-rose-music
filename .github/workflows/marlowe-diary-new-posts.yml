@@ -20,7 +20,7 @@ jobs:
           AFTER: ${{ github.sha }}
           EVENT: ${{ github.event_name }}
           DIARY_SECRET: ${{ secrets.MARLOWE_DIARY_WEBHOOK_SECRET }}
-          ENABLE_DIARY_DELIVERY: "false"
+          ENABLE_DIARY_DELIVERY: "true"
         run: |
           python3 - <<'PY'
           import json, os, pathlib, re, subprocess, sys, urllib.request, urllib.error
