@@ -1,0 +1,42 @@
+name: Test Marlowe diary connection
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-connection:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify secure Supabase connection (no email sent)
+        env:
+          DIARY_SECRET: ${{ secrets.MARLOWE_DIARY_WEBHOOK_SECRET }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request, urllib.error, sys
+          key = os.environ.get("DIARY_SECRET", "")
+          if not key:
+              sys.exit("Missing GitHub secret MARLOWE_DIARY_WEBHOOK_SECRET")
+          url = "https://pvtknpwjtspqftwhpsrz.supabase.co/functions/v1/marlowe-diary-announcements"
+          payload = {
+              "mode": "preview",
+              "slug": "2026-10-14-the-woman-behind-marlowe",
+              "title": "The Woman Behind Marlowe",
+              "excerpt": "A preview of the diary announcement."
+          }
+          request = urllib.request.Request(
+              url, data=json.dumps(payload).encode(),
+              headers={"Content-Type": "application/json", "x-diary-secret": key},
+              method="POST"
+          )
+          try:
+              with urllib.request.urlopen(request, timeout=25) as response:
+                  result = json.load(response)
+          except urllib.error.HTTPError as e:
+              sys.exit("Connection failed with HTTP " + str(e.code))
+          if result.get("mode") != "preview" or result.get("emails_sent") != 0:
+              sys.exit("Unexpected response; no emails should be sent")
+          print("Connection successful. Eligible subscribers:", result.get("eligible_count"))
+          print("No emails sent.")
+          PY
