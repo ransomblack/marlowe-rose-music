@@ -1,4 +1,4 @@
-name: New diary post detector
+name: New diary announcement automation
 on:
   push:
     branches: [main]
@@ -14,12 +14,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Record new diary announcements and recipients (no emails)
+      - name: Stage newly published diary announcements
         env:
           BEFORE: ${{ github.event.before }}
           AFTER: ${{ github.sha }}
           EVENT: ${{ github.event_name }}
           DIARY_SECRET: ${{ secrets.MARLOWE_DIARY_WEBHOOK_SECRET }}
+          ENABLE_DIARY_DELIVERY: "false"
         run: |
           python3 - <<'PY'
           import json, os, pathlib, re, subprocess, sys, urllib.request, urllib.error
@@ -58,5 +59,22 @@ jobs:
               if result.get("mode") != "stage" or result.get("emails_sent") != 0:
                   sys.exit("Unexpected response from Supabase")
               print("New diary entry:", filename, "Eligible subscribers:", result.get("eligible_count"), "Already recorded:", result.get("already_recorded"), "Emails sent: 0")
-          print("Announcement staging completed; automatic sending remains off.")
+              if result.get("already_recorded"):
+                  print("Already staged: skipping delivery to prevent backfill.")
+                  continue
+              # Delivery activation requires a separate approval flag and a verified sender footer.
+              if os.environ.get("ENABLE_DIARY_DELIVERY") != "true":
+                  print("Delivery remains disabled pending final activation.")
+                  continue
+              payload["mode"] = "deliver"
+              req = urllib.request.Request("https://pvtknpwjtspqftwhpsrz.supabase.co/functions/v1/marlowe-diary-announcements", data=json.dumps(payload).encode(), headers={"Content-Type": "application/json", "x-diary-secret": secret}, method="POST")
+              try:
+                  with urllib.request.urlopen(req, timeout=120) as response:
+                      delivery = json.load(response)
+              except urllib.error.HTTPError as error:
+                  sys.exit("Diary delivery failed with HTTP " + str(error.code) + "; check Supabase before retrying.")
+              print("Delivery response:", json.dumps(delivery))
+              if delivery.get("mode") != "deliver" or delivery.get("held_for_review",0):
+                  sys.exit("Diary delivery requires review.")
+          print("Announcement workflow completed.")
           PY
