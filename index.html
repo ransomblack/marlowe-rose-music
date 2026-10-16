@@ -239,13 +239,16 @@
   var status = document.querySelector('.release-date[data-release-date]');
   if (!status) return;
   var date = status.getAttribute('data-release-date');
-  var today = new Intl.DateTimeFormat('en-CA', {
+  var parts = new Intl.DateTimeFormat('en-US', {
     timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit'
-  }).format(new Date());
+  }).formatToParts(new Date());
+  var fields = {};
+  parts.forEach(function (part) { fields[part.type] = part.value; });
+  var today = fields.year + '-' + fields.month + '-' + fields.day;
   var released = today >= date;
   status.textContent = released ? 'OUT NOW' : 'COMING ' + new Date(date + 'T12:00:00').toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'}).toUpperCase();
   var presave = document.querySelector('.release-presave');
-  if (presave) presave.hidden = released;
+  if (presave) { presave.hidden = released; presave.style.display = released ? 'none' : ''; }
 })();
 </script>
 </body>
