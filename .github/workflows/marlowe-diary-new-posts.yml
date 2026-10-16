@@ -1,0 +1,36 @@
+name: New diary post detector
+on:
+  push:
+    branches: [main]
+    paths:
+      - '_diary/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Identify new diary files only
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT" = "workflow_dispatch" ]; then
+            echo "Manual check only; no historical posts announced."
+            exit 0
+          fi
+          if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            echo "Initial branch push skipped."
+            exit 0
+          fi
+          git diff --name-only --diff-filter=A "$BEFORE" "$AFTER" -- '_diary/*.md' | tee new-diary-posts.txt
+          if [ ! -s new-diary-posts.txt ]; then
+            echo "No new diary entries; edits and deletions ignored."
+          else
+            echo "New diary entries detected. Announcements remain disabled."
+          fi
