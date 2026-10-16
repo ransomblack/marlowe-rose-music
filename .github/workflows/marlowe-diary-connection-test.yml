@@ -39,4 +39,15 @@ jobs:
               sys.exit("Unexpected response; no emails should be sent")
           print("Connection successful. Eligible subscribers:", result.get("eligible_count"))
           print("No emails sent.")
+          dry = {"mode":"delivery-dry-run","slug":"diary-automation-test","title":"Diary Automation Test","excerpt":"Testing the automatic diary announcement system."}
+          request = urllib.request.Request(url, data=json.dumps(dry).encode(), headers={"Content-Type":"application/json","x-diary-secret":key}, method="POST")
+          try:
+              with urllib.request.urlopen(request, timeout=25) as response:
+                  result = json.load(response)
+          except urllib.error.HTTPError as e:
+              sys.exit("Delivery dry-run failed with HTTP " + str(e.code))
+          if result.get("mode") != "delivery-dry-run" or result.get("emails_sent") != 0 or result.get("live_sending_enabled") is not False:
+              sys.exit("Unsafe delivery dry-run response")
+          print("Delivery dry-run passed. Ready:", result.get("ready_to_send"), "Sent: 0")
+
           PY
