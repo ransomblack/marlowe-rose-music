@@ -1,0 +1,41 @@
+name: Controlled Marlowe diary delivery test
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send staged test to eligible subscribers and check idempotency
+        env:
+          DIARY_SECRET: ${{ secrets.MARLOWE_DIARY_WEBHOOK_SECRET }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request, urllib.error, sys
+          key = os.environ.get("DIARY_SECRET")
+          if not key:
+              sys.exit("Missing secret")
+          url = "https://pvtknpwjtspqftwhpsrz.supabase.co/functions/v1/marlowe-diary-announcements"
+          payload = {"mode":"deliver","slug":"diary-automation-test","title":"Diary Automation Test","excerpt":"Testing the automatic diary announcement system."}
+          def request(data):
+              req = urllib.request.Request(url,data=json.dumps(data).encode(),headers={"Content-Type":"application/json","x-diary-secret":key},method="POST")
+              try:
+                  with urllib.request.urlopen(req,timeout=60) as response:
+                      return json.load(response)
+              except urllib.error.HTTPError as e:
+                  sys.exit("Delivery test failed with HTTP " + str(e.code))
+          first = request(payload)
+          print("First attempt: emails sent",first.get("emails_sent"),"held for review",first.get("held_for_review"))
+          if first.get("mode") != "deliver":
+              sys.exit("Unexpected response")
+          second = request(payload)
+          print("Duplicate attempt: emails sent",second.get("emails_sent"))
+          if second.get("emails_sent") != 0:
+              sys.exit("Duplicate prevention failed")
+          status = request({"mode":"delivery-check","slug":payload["slug"],"title":payload["title"],"excerpt":payload["excerpt"]})
+          print("Final delivery counts:",json.dumps(status.get("counts")))
+          if status.get("counts",{}).get("sent") != 2:
+              sys.exit("Not all two test deliveries are confirmed. Check Supabase records before retrying.")
+          print("PASS: two sent, repeat attempt sent zero.")
+          PY
