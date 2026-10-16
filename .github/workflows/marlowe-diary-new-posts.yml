@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Identify new diary files and check recipients (no emails)
+      - name: Record new diary announcements and recipients (no emails)
         env:
           BEFORE: ${{ github.event.before }}
           AFTER: ${{ github.sha }}
@@ -48,15 +48,15 @@ jobs:
               def field(key):
                   found = re.search(r"(?m)^" + key + r":\s*(.*)$", match.group(1))
                   return found.group(1).strip().strip("'\"") if found else ""
-              payload = {"mode": "preview", "slug": pathlib.Path(filename).stem, "title": field("title"), "excerpt": field("excerpt") or "A new page from Marlowe's diary."}
+              payload = {"mode": "stage", "slug": pathlib.Path(filename).stem, "title": field("title"), "excerpt": field("excerpt") or "A new page from Marlowe's diary."}
               req = urllib.request.Request("https://pvtknpwjtspqftwhpsrz.supabase.co/functions/v1/marlowe-diary-announcements", data=json.dumps(payload).encode(), headers={"Content-Type": "application/json", "x-diary-secret": secret}, method="POST")
               try:
                   with urllib.request.urlopen(req, timeout=30) as response:
                       result = json.load(response)
               except urllib.error.HTTPError as error:
-                  sys.exit("Supabase preview failed with HTTP " + str(error.code))
-              if result.get("mode") != "preview" or result.get("emails_sent") != 0:
+                  sys.exit("Supabase staging failed with HTTP " + str(error.code))
+              if result.get("mode") != "stage" or result.get("emails_sent") != 0:
                   sys.exit("Unexpected response from Supabase")
-              print("New diary entry:", filename, "Eligible subscribers:", result.get("eligible_count"), "Emails sent: 0")
-          print("Preview checks completed; automatic sending remains off.")
+              print("New diary entry:", filename, "Eligible subscribers:", result.get("eligible_count"), "Already recorded:", result.get("already_recorded"), "Emails sent: 0")
+          print("Announcement staging completed; automatic sending remains off.")
           PY
