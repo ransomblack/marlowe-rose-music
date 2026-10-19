@@ -25,6 +25,7 @@
     <h1>{{ page.title }}</h1>
     {% if page.excerpt %}<p class="entry-deck">{{ page.excerpt }}</p>{% endif %}
     <div class="entry-body">{{ content }}</div>
+    {% include diary-comments.html entry_id=page.url %}
     <img src="{{ '/assets/marlowe-rose-logo.png' | relative_url }}" alt="" class="entry-rose">
     {% assign entries = site.diary | sort: "date" %}
     {% assign current_index = 0 %}
