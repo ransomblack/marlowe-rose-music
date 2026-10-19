@@ -5,12 +5,11 @@
   <form class="marlowe-comment-form">
     <label>Your name <input name="author_name" maxlength="80" autocomplete="name" required></label>
     <label>Your comment <textarea name="comment_text" maxlength="2000" rows="4" required></textarea></label>
-    <div class="cf-turnstile" data-sitekey="0x4AAAAAAFb7GcWJoobb8HEs" data-callback="marloweCommentVerified" data-expired-callback="marloweCommentExpired"></div>
+    <div class="marlowe-turnstile" aria-label="Spam verification"></div>
     <button type="submit">Leave a comment</button>
     <p class="marlowe-comment-status" role="status" aria-live="polite"></p>
   </form>
   <p class="marlowe-comment-privacy">Comments are public. Spam prevention uses Cloudflare Turnstile, subject to Cloudflare's privacy policy and terms. Please don't include private information.</p>
 </section>
 <link rel="stylesheet" href="{{ '/diary-comments.css' | relative_url }}">
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script src="{{ '/diary-comments.js' | relative_url }}" defer></script>
