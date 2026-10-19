@@ -24,6 +24,9 @@ button:disabled{opacity:.55}article{padding:18px 0;border-bottom:1px solid #6351
 <p id="message" role="status" aria-live="polite"></p>
 </main>
 <script>
+if(location.hash.includes("type=recovery")||new URLSearchParams(location.search).get("type")==="recovery"){
+ location.replace("/diary-password-reset.html"+location.search+location.hash);
+}
 const URL_BASE="https://tanpkisnsffagsxulqfy.supabase.co";
 const sb=window.supabase.createClient(URL_BASE,"sb_publishable_kG8WiXK6DN-hauVJLgtlww_3BLV7i7q",{auth:{persistSession:true,autoRefreshToken:true}});
 const ENTRY="/diary/2026-10-14-the-woman-behind-marlowe/";
