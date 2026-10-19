@@ -49,6 +49,7 @@
       <h2>{{ current.title }}</h2>
       {% if current.excerpt %}<p class="entry-deck">{{ current.excerpt }}</p>{% endif %}
       <div class="entry-body">{{ current.content }}</div>
+      {% include diary-comments.html entry_id=current.url %}
       <img src="{{ '/assets/marlowe-rose-logo.png' | relative_url }}" alt="" class="entry-rose">
       <nav class="page-turns" aria-label="Diary pages">
         {% if entries.size > 1 %}
