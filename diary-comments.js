@@ -5,6 +5,18 @@ const list=root.querySelector(".marlowe-comment-list"),form=root.querySelector("
 let token="";
 window.marloweCommentVerified=value=>{token=value};
 window.marloweCommentExpired=()=>{token=""};
+const challenge=root.querySelector(".marlowe-turnstile");
+let widgetId;
+function renderChallenge(){
+ if(!window.turnstile){status.textContent="Verification could not load. Please refresh the page.";return}
+ widgetId=window.turnstile.render(challenge,{sitekey:"0x4AAAAAAFb7GcWJoobb8HEs",callback:value=>{token=value;status.textContent=""}, "expired-callback":()=>{token=""}, "error-callback":()=>{token="";status.textContent="Verification unavailable. Please refresh the page."},theme:"light"});
+}
+window.marloweTurnstileReady=renderChallenge;
+const turnstileScript=document.createElement("script");
+turnstileScript.src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=marloweTurnstileReady";
+turnstileScript.async=true;
+turnstileScript.onerror=()=>{status.textContent="Verification blocked. Check browser privacy settings or content blockers and refresh."};
+document.head.append(turnstileScript);
 const el=(tag,cls,txt)=>{const node=document.createElement(tag);if(cls)node.className=cls;if(txt!==undefined)node.textContent=txt;return node};
 async function refresh(){
  try{
@@ -33,7 +45,7 @@ form.addEventListener("submit",async event=>{
   const data=await response.json();if(!response.ok)throw Error(data.error||"Could not post comment");
   status.textContent="Your comment is published. Thank you!";form.elements.comment_text.value="";await refresh();
  }catch(error){status.textContent=error.message||"Could not post comment"}
- finally{button.disabled=false;token="";if(window.turnstile)window.turnstile.reset()}
+ finally{button.disabled=false;token="";if(window.turnstile&&widgetId!==undefined)window.turnstile.reset(widgetId)}
 });
 refresh();
 })();
