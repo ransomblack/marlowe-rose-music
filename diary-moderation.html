@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Marlowe Rose | Private Comment Moderation Preview</title>
+<title>Marlowe Rose | Private Comment Moderation</title>
 <style>
 *{box-sizing:border-box}body{background:#241d1d;color:#f4e8df;font:16px/1.55 Georgia,serif;margin:0;padding:32px 16px}
 main{max-width:740px;margin:auto}h1{font-size:2rem}h2{font-size:1.3rem}
@@ -16,10 +16,9 @@ button:disabled{opacity:.55}article{padding:18px 0;border-bottom:1px solid #6351
 <p class="note">Sign in is restricted to contact@marlowerosemusic.com. Only the verified account can post official replies or delete comments.</p>
 <section id="login"><h2>Sign in</h2>
 <label for="email">Email</label><input id="email" type="email" value="contact@marlowerosemusic.com" readonly>
-<button id="send-code">Email a sign-in code</button>
-<label for="code">Six-digit code from email</label><input id="code" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="Enter email code">
-<button id="verify">Verify code</button>
-<p class="note">Email sign-in requires the administrator account to be provisioned in Supabase Auth and the email template to include an OTP code.</p>
+<label for="password">Password</label><input id="password" type="password" autocomplete="current-password" placeholder="Enter your password">
+<button id="sign-in">Sign in</button>
+<p class="note">Your sign-in is remembered on this browser. Use Sign out when sharing or retiring this computer.</p>
 </section>
 <section id="dashboard" hidden><button id="sign-out">Sign out</button><h2>Reader comments</h2><div id="comments"></div></section>
 <p id="message" role="status" aria-live="polite"></p>
@@ -39,16 +38,19 @@ async function session(){
  $("login").hidden=!!ok;$("dashboard").hidden=!ok;
  if(ok)await load();
 }
-$("send-code").onclick=async()=>{
- notice("Requesting sign-in code…");
- const {error}=await sb.auth.signInWithOtp({email,options:{shouldCreateUser:false}});
- notice(error?"Unable to send code. The account may need setup in Supabase Auth.":"Check the contact mailbox for your sign-in email. Enter the six-digit code.");
+$("sign-in").onclick=async()=>{
+ const password=$("password").value;
+ if(!password){notice("Enter your password.");return}
+ $("sign-in").disabled=true;
+ notice("Signing in…");
+ try{
+  const {error}=await sb.auth.signInWithPassword({email,password});
+  $("password").value="";
+  if(error){notice("Sign-in failed: "+error.message);return}
+  notice("Signed in.");await session();
+ }finally{$("sign-in").disabled=false}
 };
-$("verify").onclick=async()=>{
- const {error}=await sb.auth.verifyOtp({email,token:$("code").value.trim(),type:"email"});
- if(error){notice("That code was not accepted. "+error.message);return}
- notice("Signed in.");await session();
-};
+$("password").addEventListener("keydown",e=>{if(e.key==="Enter")$("sign-in").click()});
 $("sign-out").onclick=async()=>{await sb.auth.signOut();notice("Signed out.");await session()};
 async function adminAction(payload){
  const {data:{session:current}}=await sb.auth.getSession();
