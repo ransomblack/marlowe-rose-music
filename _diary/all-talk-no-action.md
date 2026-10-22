@@ -76,8 +76,6 @@ And at 42, I feel like I'm finally starting to do that.
 
 And I'm still discovering what I'm capable of.
 
-— Marlowe Rose 🌹
-
 
 
 ![Vintage scrapbook collage featuring Marlowe Rose in glasses and a green sweater, sitting thoughtfully with a journal. Torn diary pages, dried flowers, and red roses frame a quote about how talking about change felt safer than risking failure.](/assets/uploads/vintage-scrapbook-reflection-poster.png)
