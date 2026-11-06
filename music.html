@@ -44,7 +44,7 @@
         {% if release.spotify_url %}<a href="{{ release.spotify_url }}" target="_blank" rel="noopener noreferrer">spotify →</a>{% endif %}
         {% if release.apple_url %}<a href="{{ release.apple_url }}" target="_blank" rel="noopener noreferrer">apple music →</a>{% endif %}
         {% if release.amazon_url %}<a href="{{ release.amazon_url }}" target="_blank" rel="noopener noreferrer">amazon music →</a>{% endif %}
-        {% if release.presave_url %}<a href="{{ release.presave_url }}" target="_blank" rel="noopener noreferrer">{% if release.date > site.time %}presave →{% else %}listen →{% endif %}</a>{% endif %}
+        {% if release.presave_url %}<a href="{{ release.presave_url }}" target="_blank" rel="noopener noreferrer">{% if release.date > site.time %}Presave Now →{% else %}listen →{% endif %}</a>{% endif %}
       </div>
     </article>
     {% endfor %}
