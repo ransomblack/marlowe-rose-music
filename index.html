@@ -135,8 +135,8 @@
         {% if older_shown < 2 %}
         <article class="catalog-card reveal">
           {% if release.cover %}<img src="{{ release.cover | relative_url }}" alt="Marlowe Rose — {{ release.title }}">{% endif %}
-          <p class="release-date">{% if release.date > site.time %}COMING {{ release.date | date: "%B %-d, %Y" | upcase }}{% else %}{{ release.date | date: "%B %-d, %Y" | upcase }}{% endif %}</p>
           <h3>{{ release.title }}</h3>
+          <p class="release-date">{% if release.date > site.time %}COMING {{ release.date | date: "%B %-d, %Y" | upcase }}{% else %}{{ release.date | date: "%B %-d, %Y" | upcase }}{% endif %}</p>
           {% if release.description %}<p>{{ release.description }}</p>{% endif %}
           <div class="release-links">
             {% if release.spotify_url %}<a href="{{ release.spotify_url }}" target="_blank" rel="noopener noreferrer">spotify →</a>{% endif %}
