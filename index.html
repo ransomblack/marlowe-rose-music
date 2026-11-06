@@ -135,14 +135,14 @@
         {% if older_shown < 2 %}
         <article class="catalog-card reveal">
           {% if release.cover %}<img src="{{ release.cover | relative_url }}" alt="Marlowe Rose — {{ release.title }}">{% endif %}
-          <p class="release-date">{{ release.date | date: "%B %-d, %Y" | upcase }}</p>
+          <p class="release-date">{% if release.date > site.time %}COMING {{ release.date | date: "%B %-d, %Y" | upcase }}{% else %}{{ release.date | date: "%B %-d, %Y" | upcase }}{% endif %}</p>
           <h3>{{ release.title }}</h3>
           {% if release.description %}<p>{{ release.description }}</p>{% endif %}
           <div class="release-links">
             {% if release.spotify_url %}<a href="{{ release.spotify_url }}" target="_blank" rel="noopener noreferrer">spotify →</a>{% endif %}
             {% if release.apple_url %}<a href="{{ release.apple_url }}" target="_blank" rel="noopener noreferrer">apple music →</a>{% endif %}
             {% if release.amazon_url %}<a href="{{ release.amazon_url }}" target="_blank" rel="noopener noreferrer">amazon music →</a>{% endif %}
-            {% if release.presave_url %}<a href="{{ release.presave_url }}" target="_blank" rel="noopener noreferrer">listen →</a>{% endif %}
+            {% if release.presave_url %}<a href="{{ release.presave_url }}" target="_blank" rel="noopener noreferrer">{% if release.date > site.time %}Presave Now →{% else %}listen →{% endif %}</a>{% endif %}
           </div>
         </article>
         {% assign older_shown = older_shown | plus: 1 %}
