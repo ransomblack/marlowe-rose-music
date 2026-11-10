@@ -50,6 +50,18 @@
   </script>
   <script defer src="{{ '/analytics-events.js' | relative_url }}"></script>
   <!-- End Google Analytics 4 -->
+
+  <style>
+    .little-good-section{padding:clamp(54px,7vw,96px) 22px;background:#211a1b;color:#f2e5db;text-align:center;border-top:1px solid rgba(220,171,157,.2)}
+    .little-good-inner{max-width:690px;margin:0 auto}
+    .little-good-eyebrow{font-size:.73rem;letter-spacing:.24em;text-transform:uppercase;color:#d9a9a1;margin:0 0 18px}
+    .little-good-section h2{font-family:Georgia,serif;font-size:clamp(1.85rem,4vw,2.7rem);font-weight:400;line-height:1.2;margin:0 0 24px}
+    .little-good-section h2 span{font-size:.75em}
+    .little-good-section p:not(.little-good-eyebrow){font-size:1rem;line-height:1.85;color:#e1d0c8;margin:0 auto 18px}
+    .little-good-section .little-good-signoff{font-weight:600;color:#f4dfd4;margin-top:24px}
+    .little-good-link{display:inline-block;margin-top:14px;color:#f0c3b5;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:5px;letter-spacing:.04em}
+    .little-good-link:hover,.little-good-link:focus-visible{color:#fff}
+  </style>
 </head>
 <body>
 <header class="site-header">
@@ -214,6 +226,17 @@
       <button class="outline-button leave-page-submit" type="submit">leave a page →</button>
       <small class="form-note" id="leave-page-status" aria-live="polite">This page stays between you and Marlowe.</small>
     </form>
+  </div>
+</section>
+
+<section class="little-good-section" aria-labelledby="little-good-title">
+  <div class="little-good-inner reveal">
+    <p class="little-good-eyebrow">A LITTLE GOOD ALONG THE WAY</p>
+    <h2 id="little-good-title">A Little Good Along the Way <span aria-hidden="true">🌹</span></h2>
+    <p>Every story matters, and every little bit of kindness can make a difference.</p>
+    <p>A portion of the profits from Marlowe Rose merchandise supports local organizations helping people through difficult chapters and toward brighter ones.</p>
+    <p class="little-good-signoff">Every story deserves a chance to continue.</p>
+    <a class="little-good-link" href="https://marlowe-rose-shop.fourthwall.com" target="_blank" rel="noopener noreferrer">Explore the Shop <span aria-hidden="true">→</span></a>
   </div>
 </section>
 </main>
