@@ -6,9 +6,16 @@
   <meta name="theme-color" content="#2b201c">
   <title>{{ page.title }} | Marlowe Rose</title>
   <link rel="stylesheet" href="{{ '/styles.css' | relative_url }}">
-  <!-- Cloudflare Web Analytics -->
-  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"75736b34893b40fe8d4e2401ebf107f5"}'></script>
-  <!-- End Cloudflare Web Analytics -->
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BG0SE1KH9Q"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BG0SE1KH9Q');
+  </script>
+  <script defer src="{{ '/analytics-events.js' | relative_url }}"></script>
+  <!-- End Google Analytics 4 -->
 </head>
 <body class="diary-page">
 <header class="site-header diary-header">
