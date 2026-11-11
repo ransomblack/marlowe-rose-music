@@ -8,6 +8,18 @@ media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
 collections:
+  - name: "discover_feature"
+    label: "Discover Page — Song of the Month"
+    files:
+      - label: "Featured song"
+        name: "featured_song"
+        file: "_data/discover_feature.yml"
+        fields:
+          - { label: "Song title", name: "title", widget: "string" }
+          - { label: "Short personal description", name: "description", widget: "text" }
+          - { label: "Song MP3", name: "audio", widget: "file", required: false, choose_url: false, hint: "Upload an MP3. Until one is uploaded, the player will not appear." }
+          - { label: "Artwork", name: "artwork", widget: "image", required: false, choose_url: false }
+
   - name: "diary"
     label: "Diary"
     label_singular: "Diary Entry"
