@@ -1,6 +1,6 @@
 ---
 title: Little Rebellious
-date: November 20, 1906
+date: November 20, 2026
 cover: /assets/music/marlowe_rose_little_rebellious_cover_3000.png
 featured: true
 description: A song about the joy of breaking rules that were never really rules.
